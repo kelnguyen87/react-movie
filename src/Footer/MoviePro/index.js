@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {getMovieList} from '../../Services';
 import {getConfiguration} from '../../Services';
-import Loading from '../Loading';
+import { NavLink } from "react-router-dom";
 
-export default class Slideshow extends Component {
+export default class MoviePro extends Component {
 
     constructor(props) {
         super(props);
@@ -62,7 +62,7 @@ export default class Slideshow extends Component {
         const params = {
             page: 1,
             apiName: 'movie',
-            resource: 'upcoming'
+            resource: 'top_rated'
         };
 
         //Get config image
@@ -83,17 +83,18 @@ export default class Slideshow extends Component {
             }
             const configPathImages = configImages.data.images;
             
-            const configPath = configPathImages.base_url + configPathImages.backdrop_sizes[2] ;
+            const configPath = configPathImages.base_url + configPathImages.poster_sizes[1] ;
          
             let imagePath = '/images/backdrop_sizes/745x400.png';
-            let totalItem = 4;
+            let totalItem = 9;
+           
             const movieList = values[1].data.results.map(
                 (function (movie, index) {
-                 
+                    
                     if(movie.backdrop_path !== null) {
                         imagePath = configPath + movie.backdrop_path;
                     }
-                    if(index < totalItem && index > 0){
+                    if(index < totalItem ){
                         return {
                             id: `${movie.id}`,
                             title: `${movie.title}`,
@@ -121,15 +122,20 @@ export default class Slideshow extends Component {
     };
     
     
+   
 
     _renderCarouselList = () => {
         const {resource} = this.state;
-       
+        const CategoryUrl = '/video/';
         const itemCarousel = resource.map((item, index) => {
             if(item) {
                 return (
-                    <div className="heroCarousel--item" key={index}>
-                        <img className="collection-img img-responsive" alt="SS Nova" src={item.images}  />
+                  
+                    <div className="footer-grid-instagram" key={index}>
+                        <NavLink to={CategoryUrl + item.id}>
+                            <img src={item.images}  alt="{item.title}" className="img-responsive"/>
+                        </NavLink>
+                       
                     </div>
                 );
             }else{
@@ -141,22 +147,13 @@ export default class Slideshow extends Component {
 
     
     render() {
-        const {isLoading} = this.state;
-        if (isLoading) {
-            return (
-                <div className="zs-slideshow"><Loading/></div>
-            );
-        } else {
-            return (
-                <div className="zs-slideshow">
-                    <div className="owl-carousel owl-theme home_slider">
-                        {this._renderCarouselList()}
-                    </div>
-                
-                </div>
-                
-            );
-        }
+        return (
+            <div className="col-md-2 footer-grid"> 
+               <h4 className="b-log"><a href="/"><span>T</span>op <span>R</span>ated</a></h4>
+                {this._renderCarouselList()}
+            </div>
+            
+        );
     }
 }
 
