@@ -38,14 +38,15 @@ export default class Slideshow extends Component {
     componentDidMount() {
         this._promisAll();
         
+        
     }
     componentDidUpdate(prevProps) {
-       // window.initSlider();
+        window.initHomeSlider();
     }
 
-    /*shouldComponentUpdate(nextProps, nextState) {        
+    shouldComponentUpdate(nextProps, nextState) {        
         return this.state !== nextState;
-    }*/
+    }
     
     _setSSConfig = (configImages) => {
         sessionStorage.setItem("configImage", JSON.stringify(configImages));
@@ -81,7 +82,7 @@ export default class Slideshow extends Component {
             }
             const configPathImages = configImages.data.images;
             
-            const configPath = configPathImages.base_url + configPathImages.backdrop_sizes[2] ;
+            const configPath = configPathImages.base_url + configPathImages.backdrop_sizes[3] ;
          
             let imagePath = '/images/backdrop_sizes/745x400.png';
             let totalItem = 3;
@@ -140,11 +141,11 @@ export default class Slideshow extends Component {
     render() {
         return (
             <div className="widget-slideshow">
-                <div className="container">
+                
                     <div className="owl-carousel owl-theme home_slider">
                         {this._renderCarouselList()}
                     </div>
-                </div>
+              
             </div>
         );
     }

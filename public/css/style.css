@@ -388,15 +388,15 @@ body {
   font-family: "Raleway";
   color: #666; }
 
-@media (min-width: 1200px) {
+@media (min-width: 1300px) {
   .container {
-    max-width: 1200px; }
+    max-width: 1230px; }
 
   .wrapper-full .header .container,
   .wrapper-full .widget-slideshow .container,
   .wrapper-full .banners-slider .container,
   .wrapper-full .widget-services .container {
-    max-width: 1200px;
+    max-width: 1440px;
     padding-left: 0;
     padding-right: 0; } }
 .home-section {
@@ -498,7 +498,6 @@ body {
 .section-minicart .cart_info {
   margin-top: -5px;
   padding-left: 15px;
-  min-width: 70px;
   float: left;
   font-size: 12px; }
   .section-minicart .cart_info .cart-title {
@@ -1329,7 +1328,7 @@ ul.footer-block-content {
   transform: scale(1); }
   @media (max-width: 1600px) {
     #goToTop {
-      right: 10px;
+      right: 0;
       border-radius: 0; } }
   #goToTop:hover {
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3); }
@@ -1520,7 +1519,8 @@ ul.footer-block-content {
     z-index: 2;
     clear: both; }
   .widget-product-tabs .ltabs-tabs-container {
-    position: relative; }
+    position: relative;
+    overflow: hidden; }
     .widget-product-tabs .ltabs-tabs-container .tabs-menu {
       position: relative; }
       .widget-product-tabs .ltabs-tabs-container .tabs-menu .tabs-menu_title {
