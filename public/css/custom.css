@@ -55,7 +55,34 @@
     border: 2px solid #02a388;
 }
 
+/*============ Block-Card =============*/
+.hvr-sweep-to-bottom{
+    min-height: 270px;
+    background: #f7f7f7;
+    margin: 0 -1px;
+    display: flex;
+    align-items: center;
+    background: #ededf1;
+    padding: 1.2em;
+    box-shadow: 0px 1px 1px rgba(110, 110, 111, 0.12);
+}
+.hvr-sweep-to-bottom:before{opacity: 0.6;}
+div.fexi_header_para {
+    margin-top: .8em;
+    color: #9ea2a2;
+    line-height: 1.5em;
+    position: relative;
+}
+div.fexi_header_para span {
+    color: #02a388;
+    font-size: 14px;
+    font-weight: bold;
+    float: left;
+    width: 25%;
+}
+.video-grid-single-page-agileits img{opacity: 0.8;}
 /*============ Block-Footer =============*/
+.w3l-movie-text h6 a{overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block;}
 .wthree_agile_login ul li{margin: 0 2px;}
 ul.w3-tag2 li {
     display: inline-block;
