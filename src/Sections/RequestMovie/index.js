@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {getMovieList} from '../../Services';
 import {getConfiguration} from '../../Services';
 import Card from '../../Product/card';
-import CardSingle from '../../Product/card-single';
 
 export default class TopMovie extends Component {
 
@@ -10,7 +9,7 @@ export default class TopMovie extends Component {
         super(props);
         this.state = {
             isLoading: true,
-            videoSingle: [],
+         
             videoList: [],
             videoNowPlaying: [],
             configuration: {
@@ -106,10 +105,8 @@ export default class TopMovie extends Component {
 
     _promisAll = () => {
         const params = {
-            sort_by: 'revenue.desc',
-            vote_countGTE: '10',
-            apiName: 'discover',
-            resource: 'movie'
+            apiName: 'movie',
+            resource: 'upcoming'
         };
 
         //Get config image
@@ -130,12 +127,12 @@ export default class TopMovie extends Component {
                 this._setSSConfig(configImages);
             }
             const configPathImages = configImages.data.images;
+           
             const configPath = configPathImages.base_url + configPathImages.backdrop_sizes[0] ;
             let imagePath = 'http://placehold.jp/300x169.png';
             
-            // Change value videoSingleID
-            const totalItem = 9;
-            const videoSingleID = 299534;
+            // Change value totalItem
+            const totalItem = 12;
             
             //Get video Now Playing
             const movielatest = this._getNowPlaying();
@@ -161,7 +158,7 @@ export default class TopMovie extends Component {
                         imagePath = configPath + movie.poster_path;
                     }
                     
-                    if(index < totalItem && movie.id !== videoSingleID){
+                    if(index < totalItem ){
                         return {
                             id: `${movie.id}`,
                             title: `${movie.title}`,
@@ -176,33 +173,10 @@ export default class TopMovie extends Component {
                 })
             )
             
-            const configPathSingle = configPathImages.base_url + configPathImages.backdrop_sizes[1] ;
-            const movieSingle = values[1].data.results.map(
-                (function (movie, index) {
-                 
-                    if(movie.backdrop_path !== null) {
-                        imagePath = configPathSingle + movie.backdrop_path;
-                    }
-                    if(movie.id === videoSingleID){
-                        return {
-                            id: `${movie.id}`,
-                            title: `${movie.title}`,
-                            date: `${movie.release_date}`,
-                            genre_ids: `${movie.genre_ids}`,
-                            desc: `${movie.overview}`,
-                            images: `${imagePath}`,
-                            vote_average:`${movie.vote_average}`,
-                        };    
-                    }
-                    return false;
-                                      
-                })
-            )
-            
+           
             
             this.setState({
                 isLoading: false,
-                videoSingle:movieSingle,
                 videoList: movieList
             });
         })
@@ -221,7 +195,7 @@ export default class TopMovie extends Component {
         const itemVideo = videoList.map((item, index) => {
             if(item && videoNowPlaying.length > 0) {
                 return (
-                    <Card item={item} key={index} latest={videoNowPlaying} class_sfx=""/>
+                    <Card item={item} key={index} latest={videoNowPlaying} class_sfx="requested-movies" />
                 );
             }
             return false;
@@ -229,35 +203,15 @@ export default class TopMovie extends Component {
         return itemVideo;
     }
 
-    _renderVideolSingle = () => {
-        const {videoSingle} = this.state;
-       
-        const itemVideo = videoSingle.map((item, index) => {
-            if(item) {
-                return (
-                    <CardSingle item={item} key={index} />
-                );
-            }
-            return false;
-        });
-        return itemVideo;
-    }
     
     render() {
         return (
             <div className="section-movies">
-                <h3 className="agile_w3_title">Top<span>Movies</span> </h3>
-                <div className="tab_movies_agileinfo">
-                    <div className="w3_agile_featured_movies two">
-                        <div className="col-md-7 wthree_agile-movies_list second-top">
-                            {this._renderVideolList()}    
-                        </div>
-                        <div className="col-md-5 video_agile_player second-top">
-                            {this._renderVideolSingle()}
-                        </div>
-                        
-                        <div className="cleafix"></div>
-                    </div>
+                <h3 className="agile_w3_title">Requested  <span>Movies</span> </h3>
+                <div className="wthree_agile-requested-movies">
+                    {this._renderVideolList()}    
+                    <div className="cleafix"></div>
+                   
                 </div>
             </div>
         );

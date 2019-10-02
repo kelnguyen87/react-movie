@@ -19,15 +19,14 @@
         "use strict";
         ss.init();
         window.initlOwlCarousel = ss.initlOwlCarousel;
-        window.initCountd = ss.initCountd;
-        window.initMagnificPopup = ss.initMagnificPopup;
+       
         
     });
 
     var ss = {
         init: function() {
             //this.initInstafeed();
-            this.initMagnificPopup();
+            //this.initMagnificPopup();
             this.initOnTop();
         },
         initMagnificPopup:function(){
@@ -45,47 +44,7 @@
                 gallery: {  enabled: false }
             });
         },
-        initCountd: function() {
-            $('[data-date]').each(function() {
-                var $this = $(this), finalDate = $(this).data('date');
-                $this.countdown(finalDate, function(event) {
-                $this.html(event.strftime('<div class="deals-time day"><div class="num-time">%D</div><div class="title-time">days</div></div> <div class="deals-time hour"><div class="num-time">%H</div> <div class="title-time">hours</div></div><div class="deals-time minute"><div class="num-time">%M</div><div class="title-time">mins</div></div><div class="deals-time second"><div class="num-time">%S</div><div class="title-time">secs</div></div>'));
-                });
-            }); 
-        },
-        initInstafeed:function(){
-            if ($('.instagram-slide').length) {
-                var feed = new Instafeed({
-                get: 'user',
-                userId: '7703552354',
-                accessToken: '7703552354.1677ed0.3e0ef38604284bc18f32f20fead87821',
-                resolution: 'low_resolution',
-                template: '<div className="instagram-item"><a href="{'+'{link}}" id="{'+'{id}}"><img className="card-image" src="{'+'{image}}" /></a></div>',
-                sortBy: 'most-recent',
-                limit: 4,
-                links: true,
-                after: function() {
-                
-                    $('.instagram-slide').owlCarousel(
-                        {
-                        nav: 					true,
-                        dots:					false,
-                        speed:				5000,
-                        loop:					false,
-                        addClassActive:		true,
-                        lazyLoad:				true,
-                        navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-                        navClass: ["owl-prev", "owl-next"],
-                        items:1,
-                        margin: 0
-                        
-                    });
-                }
-                });
-                feed.run();
-            }
-            
-        },
+        
         initlOwlCarousel: function() {
            
             $(".ss-carousel").each(function(){
@@ -116,7 +75,7 @@
                     addClassActive:		true,
                     lazyLoad:				lazyLoad,
                     rtl:					 rtl,
-                    navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+                   
                     navClass: ["owl-prev", "owl-next"],
                     afterAction: 			FirstLastActiveItem,
                     responsive:{

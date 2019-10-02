@@ -86,7 +86,7 @@ export default class LatestMovie extends Component {
             const configPath = configPathImages.base_url + configPathImages.poster_sizes[1] ;
          
             let imagePath = '/images/backdrop_sizes/745x400.png';
-            let totalItem = 3;
+            let totalItem = 4;
             const movieList = values[1].data.results.map(
                 (function (movie, index) {
                  

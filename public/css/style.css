@@ -1200,8 +1200,8 @@ h3.agile_w3_title span {
 .w3_agile_latest_movies {
 	padding: 2em 1em;
 	box-shadow: 0px 0px 1px #999;
-	width: 99%;
-	margin: 0 auto;
+	width: 100%;
+	
 }
 
 .w3l-movie-gride-agile.w3l-movie-gride-slider {
@@ -1225,7 +1225,7 @@ h3.agile_w3_title span {
 /*-- /requested-movies  --*/
 
 .w3l-movie-gride-agile.requested-movies {
-	width: 19%!important;
+	width: 15.55%!important;
 	padding: 0;
 }
 
@@ -1238,7 +1238,7 @@ h3.agile_w3_title span {
 	width: 100%;
 	background: #ededf1;
 	padding: 1.2em;
-	box-shadow: 0px 2px 1px rgba(110, 110, 111, 0.12);
+	
 }
 
 .video_agile_player.second-top {

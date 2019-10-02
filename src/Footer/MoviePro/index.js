@@ -60,9 +60,9 @@ export default class MoviePro extends Component {
 
     _promisAll = () => {
         const params = {
-            page: 1,
-            apiName: 'movie',
-            resource: 'top_rated'
+            sort_by: 'vote_count.desc',
+            apiName: 'discover',
+            resource: 'movie'
         };
 
         //Get config image
@@ -85,14 +85,14 @@ export default class MoviePro extends Component {
             
             const configPath = configPathImages.base_url + configPathImages.poster_sizes[1] ;
          
-            let imagePath = '/images/backdrop_sizes/745x400.png';
-            let totalItem = 9;
+            let imagePath = 'http://placehold.jp/300x169.png';
+            let totalItem = 6;
            
             const movieList = values[1].data.results.map(
                 (function (movie, index) {
                     
-                    if(movie.backdrop_path !== null) {
-                        imagePath = configPath + movie.backdrop_path;
+                    if(movie.poster_path !== null) {
+                        imagePath = configPath + movie.poster_path;
                     }
                     if(index < totalItem ){
                         return {
@@ -149,7 +149,7 @@ export default class MoviePro extends Component {
     render() {
         return (
             <div className="col-md-2 footer-grid"> 
-               <h4 className="b-log"><a href="/"><span>T</span>op <span>R</span>ated</a></h4>
+               <h4 className="b-log"><a href="/"><span>M</span>ovies <span>P</span>ro</a></h4>
                 {this._renderCarouselList()}
             </div>
             

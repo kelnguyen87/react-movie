@@ -22,7 +22,7 @@ export const getMovieList = (params) => {
     paramsUrl += `?api_key=${API_KEY}&language=${language}`;
     
     if(params.sort_by) { paramsUrl += `&sort_by=${params.sort_by}`; }
-    if(params.vote_averageGTE) { paramsUrl += `&vote_average.gte=${params.vote_averageGTE}`; }
+    if(params.vote_countGTE) { paramsUrl += `&vote_count.gte=${params.vote_countGTE}`; }
     if(params.primary_release_year) { paramsUrl += `&primary_release_year=${params.primary_release_year}`; }
     if(params.page) { paramsUrl += `&page=${params.page}`; }
 

@@ -2,15 +2,14 @@ import React, {Component} from 'react';
 import {getMovieList} from '../../Services';
 import {getConfiguration} from '../../Services';
 import Card from '../../Product/card';
-import CardSingle from '../../Product/card-single';
 
-export default class TopMovie extends Component {
+export default class LatestMovie extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             isLoading: true,
-            videoSingle: [],
+         
             videoList: [],
             videoNowPlaying: [],
             configuration: {
@@ -42,9 +41,10 @@ export default class TopMovie extends Component {
     componentDidMount() {
         this._promisAll();
         
+        
     }
     componentDidUpdate(prevProps) {
-       
+        window.initlOwlCarousel();
     }
 
     shouldComponentUpdate(nextProps, nextState) {        
@@ -106,10 +106,9 @@ export default class TopMovie extends Component {
 
     _promisAll = () => {
         const params = {
-            sort_by: 'revenue.desc',
-            vote_countGTE: '10',
-            apiName: 'discover',
-            resource: 'movie'
+            page: 1,
+            apiName: 'movie',
+            resource: 'now_playing'
         };
 
         //Get config image
@@ -133,12 +132,11 @@ export default class TopMovie extends Component {
             const configPath = configPathImages.base_url + configPathImages.backdrop_sizes[0] ;
             let imagePath = 'http://placehold.jp/300x169.png';
             
-            // Change value videoSingleID
-            const totalItem = 9;
-            const videoSingleID = 299534;
+            // Change value totalItem
+            const totalItem = 10;
             
             //Get video Now Playing
-            const movielatest = this._getNowPlaying();
+            /*const movielatest = this._getNowPlaying();
             movielatest.then(movie => {
                 const mapMovielatest = movie.map( (result, index) => {
                     return result
@@ -148,12 +146,11 @@ export default class TopMovie extends Component {
                     videoNowPlaying: mapMovielatest,
                 });
                
-            })
+            })*/
             
             //Get Genres
             //const getGenres = this._getCategory();
             
-
             const movieList = values[1].data.results.map(
                 (function (movie, index) {
                     
@@ -161,7 +158,7 @@ export default class TopMovie extends Component {
                         imagePath = configPath + movie.poster_path;
                     }
                     
-                    if(index < totalItem && movie.id !== videoSingleID){
+                    if(index < totalItem ){
                         return {
                             id: `${movie.id}`,
                             title: `${movie.title}`,
@@ -176,33 +173,10 @@ export default class TopMovie extends Component {
                 })
             )
             
-            const configPathSingle = configPathImages.base_url + configPathImages.backdrop_sizes[1] ;
-            const movieSingle = values[1].data.results.map(
-                (function (movie, index) {
-                 
-                    if(movie.backdrop_path !== null) {
-                        imagePath = configPathSingle + movie.backdrop_path;
-                    }
-                    if(movie.id === videoSingleID){
-                        return {
-                            id: `${movie.id}`,
-                            title: `${movie.title}`,
-                            date: `${movie.release_date}`,
-                            genre_ids: `${movie.genre_ids}`,
-                            desc: `${movie.overview}`,
-                            images: `${imagePath}`,
-                            vote_average:`${movie.vote_average}`,
-                        };    
-                    }
-                    return false;
-                                      
-                })
-            )
-            
+           
             
             this.setState({
                 isLoading: false,
-                videoSingle:movieSingle,
                 videoList: movieList
             });
         })
@@ -219,9 +193,9 @@ export default class TopMovie extends Component {
         const {videoNowPlaying} = this.state;
         
         const itemVideo = videoList.map((item, index) => {
-            if(item && videoNowPlaying.length > 0) {
+            if(item ) {
                 return (
-                    <Card item={item} key={index} latest={videoNowPlaying} class_sfx=""/>
+                    <Card item={item} key={index} latest={videoNowPlaying} class_sfx="w3l-movie-gride-slider" />
                 );
             }
             return false;
@@ -229,35 +203,17 @@ export default class TopMovie extends Component {
         return itemVideo;
     }
 
-    _renderVideolSingle = () => {
-        const {videoSingle} = this.state;
-       
-        const itemVideo = videoSingle.map((item, index) => {
-            if(item) {
-                return (
-                    <CardSingle item={item} key={index} />
-                );
-            }
-            return false;
-        });
-        return itemVideo;
-    }
     
     render() {
         return (
-            <div className="section-movies">
-                <h3 className="agile_w3_title">Top<span>Movies</span> </h3>
-                <div className="tab_movies_agileinfo">
-                    <div className="w3_agile_featured_movies two">
-                        <div className="col-md-7 wthree_agile-movies_list second-top">
-                            {this._renderVideolList()}    
-                        </div>
-                        <div className="col-md-5 video_agile_player second-top">
-                            {this._renderVideolSingle()}
-                        </div>
-                        
-                        <div className="cleafix"></div>
-                    </div>
+            <div className="section-movies ">
+                <h3 className="agile_w3_title">LATEST  <span>Movies</span> </h3>
+                <div className="w3_agile_latest_movies">
+                <div className="wthree_agile-requested-movies ss-carousel owl-carousel owl-theme" data-dots="false" data-nav="true" data-margin="0" data-autoplay="false" data-autospeed="10000" data-speed="300" data-column1="6" data-column2="4" data-column3="2" data-column4="2" data-column5="1">
+                    {this._renderVideolList()}    
+                    <div className="cleafix"></div>
+                   
+                </div>
                 </div>
             </div>
         );
