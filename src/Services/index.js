@@ -39,3 +39,12 @@ export const getConfiguration = () => {
     return axios.get(path);
 
 };
+
+export const getListMegaMenu = () => {
+    const apiVersion = '3';
+    const apiName   = 'genre/movie/list';
+    const language  = 'en-US';
+    const paramsUrl = `api_key=${API_KEY}&language=${language}`;
+    const path = `${END_POINT}/${apiVersion}/${apiName}?${paramsUrl}`;
+    return axios.get(path);
+}

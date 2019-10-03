@@ -111,6 +111,9 @@ ul.resp-tabs-list{ text-align: center;display: table;}
 .tab-pane.fade{display: none;}
 .tab-pane.fade.in{display: block;}
 .w3_agile_featured_movies{display: table; width: 100%;}
+ul.dropdown-menu.columns-3 li {width:33%; display: inline-block;}
+ul.dropdown-menu > li > a{padding: 4px 10px;}
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{background:#666;}
 /*============ Block-Footer =============*/
 .w3l-movie-text h6 a{overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block;}
 .wthree_agile_login ul li{margin: 0 2px;}

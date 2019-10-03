@@ -1,95 +1,95 @@
-import React, {Component} from 'react';
-//import { NavLink } from "react-router-dom";
+import React, { Component } from 'react';
+
+import MenuItem from './MenuItem';
+import MegaMenu from './Dropdown';
+import { NavLink } from "react-router-dom";
+
 export default class Mainmenu extends Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            menuList: this._createMenuItemList()
+        }
+    }
 
-   
+    _createMenuItemList = () => {
+        const homeMenu = new MenuItem(1, 'Home', '/',false);
+        const genres = new MenuItem(2, 'Genres', '/genres',true);
+        const tvSeriesMenu = new MenuItem(3, 'tv - series', '/tv-series',false);
+        const news = new MenuItem(4, 'news', '/news',false);
+        const country = new MenuItem(5, 'Country', '/country',false);
+        const azList = new MenuItem(6, 'A - z list', 'a-z-list',false);
+        const contact = new MenuItem(6, 'Contact', '/contact',false);
+
+        return [homeMenu, genres, tvSeriesMenu, news, country, azList,contact];
+    }
+
+    _renderMenuItem = () => {
+        const {menuList} = this.state;
+        const item = menuList.map((item, index) => {
+            if(item._megamenu === false) {
+                return (
+                    // <li className={index === 0 ? 'active' : ''} key={index}><a href={herfValue}>{item._name}</a></li>
+                    <li key={index}>
+                        <NavLink
+                            exact={index === 0 ? true : false}
+                            activeClassName="active"
+                            to={item._link}>{item._name}</NavLink>
+                    </li>
+                )
+            }else {
+                return (
+                    <li key={index} className="dropdown">
+                        <NavLink
+                            exact={index === 0 ? true : false}
+                            activeClassName="active"
+                            to={item._link}>{item._name}
+                            <b className="caret"></b>
+                        </NavLink>
+                        <MegaMenu />
+                    </li>
+                )
+            }
+            
+        });
+        return item;
+    }
+
+    _renderMenuItemLayout = () => {
+        const {menuList} = this.state;
+        if(menuList.length > 0) {
+            return (
+                <nav className="navbar navbar-default">
+                    <div className="navbar-header navbar-left">
+                    <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span className="sr-only">Toggle navigation</span>
+                        <span className="icon-bar" />
+                        <span className="icon-bar" />
+                        <span className="icon-bar" />
+                    </button>
+                    </div>
+                    {/* Collect the nav links, forms, and other content for toggling */}
+                    <div className="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                        <nav>
+                            <ul className="nav navbar-nav">
+                                { this._renderMenuItem() }
+                            </ul>
+                        </nav>
+                    </div>
+                </nav>
+            );
+        }else {
+            return '';
+        }
+    };
+
     render() {
-        
         return (
-           
-			<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul className="nav navbar-nav">
-                <li className="active"><a href="index.html">Home</a></li>
-                <li className="dropdown">
-                    <a href="#" className="dropdown-toggle" data-toggle="dropdown">Genre <b className="caret"></b></a>
-                    <ul className="dropdown-menu multi-column columns-3">
-                        <li>
-                        <div className="col-sm-4">
-                            <ul className="multi-column-dropdown">
-                                <li><a href="genre.html">Action</a></li>
-                                <li><a href="genre.html">Biography</a></li>
-                                <li><a href="genre.html">Crime</a></li>
-                                <li><a href="genre.html">Family</a></li>
-                                <li><a href="horror.html">Horror</a></li>
-                                <li><a href="genre.html">Romance</a></li>
-                                <li><a href="genre.html">Sports</a></li>
-                                <li><a href="genre.html">War</a></li>
-                            </ul>
-                        </div>
-                        <div className="col-sm-4">
-                            <ul className="multi-column-dropdown">
-                                <li><a href="genre.html">Adventure</a></li>
-                                <li><a href="comedy.html">Comedy</a></li>
-                                <li><a href="genre.html">Documentary</a></li>
-                                <li><a href="genre.html">Fantasy</a></li>
-                                <li><a href="genre.html">Thriller</a></li>
-                            </ul>
-                        </div>
-                        <div className="col-sm-4">
-                            <ul className="multi-column-dropdown">
-                                <li><a href="genre.html">Animation</a></li>
-                                <li><a href="genre.html">Costume</a></li>
-                                <li><a href="genre.html">Drama</a></li>
-                                <li><a href="genre.html">History</a></li>
-                                <li><a href="genre.html">Musical</a></li>
-                                <li><a href="genre.html">Psychological</a></li>
-                            </ul>
-                        </div>
-                        <div className="clearfix"></div>
-                        </li>
-                    </ul>
-                </li>
-                <li><a href="series.html">tv - series</a></li>
-                <li><a href="news.html">news</a></li>
-                <li className="dropdown">
-                    <a href="#" className="dropdown-toggle" data-toggle="dropdown">Country <b className="caret"></b></a>
-                    <ul className="dropdown-menu multi-column columns-3">
-                        <li>
-                            <div className="col-sm-4">
-                                <ul className="multi-column-dropdown">
-                                    <li><a href="genre.html">Asia</a></li>
-                                    <li><a href="genre.html">France</a></li>
-                                    <li><a href="genre.html">Taiwan</a></li>
-                                    <li><a href="genre.html">United States</a></li>
-                                </ul>
-                            </div>
-                            <div className="col-sm-4">
-                                <ul className="multi-column-dropdown">
-                                    <li><a href="genre.html">China</a></li>
-                                    <li><a href="genre.html">HongCong</a></li>
-                                    <li><a href="genre.html">Japan</a></li>
-                                    <li><a href="genre.html">Thailand</a></li>
-                                </ul>
-                            </div>
-                            <div className="col-sm-4">
-                                <ul className="multi-column-dropdown">
-                                    <li><a href="genre.html">Euro</a></li>
-                                    <li><a href="genre.html">India</a></li>
-                                    <li><a href="genre.html">Korea</a></li>
-                                    <li><a href="genre.html">United Kingdom</a></li>
-                                </ul>
-                            </div>
-                            <div className="clearfix"></div>
-                        </li>
-                    </ul>
-                </li>
-                <li><a href="list.html">A - z list</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-
-        </div>
-           
+            <div className="movies_nav">
+                <div className="container">
+                    {this._renderMenuItemLayout()}
+                </div>
+            </div>
         );
     }
 }
-
