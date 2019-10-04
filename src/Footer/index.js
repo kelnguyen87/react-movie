@@ -27,6 +27,7 @@ export default class Footer extends Component {
                 </div>
                 <FllowUs/>
                 <div className="clearfix"> </div>
+                <a href="#home" id="toTop" className="scroll" style={{display: "block"}}> <span id="toTopHover" style={{opacity: 1}}> </span></a>
             </div>
             <CopyRight/>
         </div>
