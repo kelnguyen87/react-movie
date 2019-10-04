@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link href="%PUBLIC_URL%/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="%PUBLIC_URL%/css/easy-responsive-tabs.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="%PUBLIC_URL%/css/custom.css" rel="stylesheet" type="text/css" media="all" />
     <title>React App</title>
   </head>
   <body>
@@ -32,22 +31,7 @@
     <script src="%PUBLIC_URL%/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
     <script src="%PUBLIC_URL%/js/custom.js"></script>
 	<script type="text/javascript">
-      function initHomeSlider(){
-          if ($('.home_slider').length) {
-              var homeSlider = $('.home_slider');
-              homeSlider.owlCarousel(
-                  {
-                      items: 1,
-                      loop: false,
-                      autoplay: false,
-                      nav : true,
-                      navClass: ["owl-prev", "owl-next"],
-                      navText: [' ', ' '],
-                      smartSpeed: 1200
-                  });
-          }
-      }
-
+     
       $(document).ready(function($) {
         $(".dropdown").hover(            
             function() {
@@ -63,6 +47,7 @@
           event.preventDefault();
           $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
         });
+
       });
 	 </script>
   </body>

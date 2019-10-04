@@ -24,10 +24,9 @@ export default class CardSingle extends Component {
                         <a href="/">Family</a>								
                     </p>
                     <div className="fexi_header_para fexi_header_para1"><span>Star Rating<label>:</label></span>
-                    
-                            <ul className="w3l-ratings">
-                            {getLayoutVote(parseFloat(this.props.item.vote_average))}
-                            </ul>
+                        <ul className="w3l-ratings">
+                        {getLayoutVote(parseFloat(this.props.item.vote_average))}
+                        </ul>
                         
                     </div>
                 </div>

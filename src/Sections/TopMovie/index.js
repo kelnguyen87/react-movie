@@ -3,6 +3,7 @@ import {getMovieList} from '../../Services';
 import {getConfiguration} from '../../Services';
 import Card from '../../Product/card';
 import CardSingle from '../../Product/card-single';
+import Loading from '../Loading';
 
 export default class TopMovie extends Component {
 
@@ -243,21 +244,40 @@ export default class TopMovie extends Component {
         return itemVideo;
     }
     
+    _renderLayout=()=>{
+        const {isLoading} = this.state;
+        const {videoList} = this.state;
+        const {videoSingle} = this.state;
+
+        if (isLoading) return <Loading/>
+
+        if(videoList.length > 0 || videoSingle.length > 0){
+            return(
+                <div className="w3_agile_featured_movies two">
+                    <div className="col-md-7 wthree_agile-movies_list second-top">
+                        {this._renderVideolList()}    
+                    </div>
+                    <div className="col-md-5 video_agile_player second-top">
+                        {this._renderVideolSingle()}
+                    </div>
+                    
+                    <div className="cleafix"></div>
+                </div>
+            )
+        }else{
+            return (
+                <div className="text-center" style={{margin: '5rem 0'}}>Sorry, there are no item</div>
+            )
+        }
+        
+    }
+    
     render() {
         return (
             <div className="section-movies">
                 <h3 className="agile_w3_title">Top<span>Movies</span> </h3>
                 <div className="tab_movies_agileinfo">
-                    <div className="w3_agile_featured_movies two">
-                        <div className="col-md-7 wthree_agile-movies_list second-top">
-                            {this._renderVideolList()}    
-                        </div>
-                        <div className="col-md-5 video_agile_player second-top">
-                            {this._renderVideolSingle()}
-                        </div>
-                        
-                        <div className="cleafix"></div>
-                    </div>
+                    {this._renderLayout()}
                 </div>
             </div>
         );

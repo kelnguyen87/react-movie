@@ -48,3 +48,13 @@ export const getListMegaMenu = () => {
     const path = `${END_POINT}/${apiVersion}/${apiName}?${paramsUrl}`;
     return axios.get(path);
 }
+
+
+export const searchMovie = (query) => {
+    const apiVersion = '3';
+    const apiName   = 'search/movie';
+    const language  = 'en-US';
+    const paramsUrl = `api_key=${API_KEY}&language=${language}&query=${query}&page=1&include_adult=false`;
+    const path = `${END_POINT}/${apiVersion}/${apiName}?${paramsUrl}`;
+    return axios.get(path);
+}

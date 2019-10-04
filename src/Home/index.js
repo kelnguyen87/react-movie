@@ -15,7 +15,6 @@ export default class Home extends Component {
                     <TopMovie/>
                     <div className="clearfix"> </div>
                 </div>
-               
             </div>
             
         );

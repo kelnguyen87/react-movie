@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {getMovieList} from '../../Services';
 import {getConfiguration} from '../../Services';
 import Card from '../../Product/card';
+import Loading from '../Loading';
 
 export default class LatestMovie extends Component {
 
@@ -39,8 +40,8 @@ export default class LatestMovie extends Component {
     
    
     componentDidMount() {
-        this._promisAll();
-        
+       this._promisAll();
+      
         
     }
     componentDidUpdate(prevProps) {
@@ -190,17 +191,31 @@ export default class LatestMovie extends Component {
    
     _renderVideolList = () => {
         const {videoList} = this.state;
+        const {isLoading} = this.state;
         const {videoNowPlaying} = this.state;
         
-        const itemVideo = videoList.map((item, index) => {
-            if(item ) {
-                return (
-                    <Card item={item} key={index} latest={videoNowPlaying} class_sfx="w3l-movie-gride-slider" />
-                );
-            }
-            return false;
-        });
-        return itemVideo;
+        if (isLoading) return <Loading/>
+        if(videoList.length > 0 ){
+            const itemVideo=[];
+            const resultVideo = videoList.map((item, index) => {
+                if(item ) {
+                    return <Card item={item} key={index} latest={videoNowPlaying} class_sfx="w3l-movie-gride-slider" />
+                }
+                return false;
+            });
+            itemVideo.push(
+                <div key="0" className="wthree_agile-requested-movies ss-carousel owl-carousel owl-theme" data-dots="false" data-nav="true" data-margin="0" data-autoplay="false" data-autospeed="10000" data-speed="300" data-column1="6" data-column2="4" data-column3="2" data-column4="2" data-column5="1">
+                    {resultVideo}
+                </div>
+            );
+
+            return itemVideo;
+        }else{
+            return (
+                <div className="text-center" style={{margin: '5rem 0'}}>Sorry, there are no item</div>
+            )
+        }
+        
     }
 
     
@@ -209,11 +224,9 @@ export default class LatestMovie extends Component {
             <div className="section-movies ">
                 <h3 className="agile_w3_title">LATEST  <span>Movies</span> </h3>
                 <div className="w3_agile_latest_movies">
-                <div className="wthree_agile-requested-movies ss-carousel owl-carousel owl-theme" data-dots="false" data-nav="true" data-margin="0" data-autoplay="false" data-autospeed="10000" data-speed="300" data-column1="6" data-column2="4" data-column3="2" data-column4="2" data-column5="1">
                     {this._renderVideolList()}    
                     <div className="cleafix"></div>
                    
-                </div>
                 </div>
             </div>
         );

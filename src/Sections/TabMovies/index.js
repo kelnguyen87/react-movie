@@ -72,10 +72,8 @@ export default class TabMovies extends Component {
                         { this._renderTabList() }
                     </ul>
                     <div id="myTabContent" className="tab-content">
-                        <div className="w3_agile_featured_movies">
                         { this._renderTabContent() }
-                        </div>
-                        
+                       
                     </div>
                 </div>
             );

@@ -3,13 +3,15 @@ import {getMovieList} from '../../Services';
 import {getConfiguration} from '../../Services';
 import Card from '../../Product/card';
 import CardSingle from '../../Product/card-single';
+import Loading from '../Loading';
 
 export default class TabContent extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            movieList: [],
+            isLoading: true,
+            videoList: [],
             videoSingle:[],
             configuration: {
                 images: {
@@ -173,7 +175,8 @@ export default class TabContent extends Component {
                 )
                 
                 this.setState({
-                    movieList: movieList,
+                    isLoading: false,
+                    videoList: movieList,
                     videoSingle:movieSingle,
                 });
             }
@@ -181,8 +184,8 @@ export default class TabContent extends Component {
     }
 
     _renderVideolList = () => {
-        const {movieList} = this.state;
-        const itemVideo = movieList.map((item, index) => {
+        const {videoList} = this.state;
+        const itemVideo = videoList.map((item, index) => {
             if(item ) {
                 return (
                     <Card item={item} key={index}  class_sfx=""/>
@@ -206,12 +209,15 @@ export default class TabContent extends Component {
         return itemVideo;
     }
 
-    render() {
-        return (
-            <div role="tabpanel"
-                className={this.props.index === 0? 'tab-pane fade active in' : 'tab-pane fade'}
-                id={this.props.item.id} aria-labelledby={this.props.item.id + '-tab'}
-                key={this.props.index}>
+    _renderLayout=()=>{
+        const {isLoading} = this.state;
+        const {videoList} = this.state;
+        const {videoSingle} = this.state;
+        
+        if (isLoading) return <Loading/>
+
+        if(videoList.length > 0 || videoSingle.length > 0 ){
+            return(
                 <div className="w3_agile_featured_movies two">
                     <div className="col-md-5 video_agile_player ">
                         {this._renderVideolSingle()}
@@ -222,6 +228,24 @@ export default class TabContent extends Component {
                    
                     
                     <div className="cleafix"></div>
+                </div>
+            )
+        }else{
+            return (
+                <div className="text-center" style={{margin: '5rem 0'}}>Sorry, there are no item</div>
+            )
+        }
+        
+    }
+
+    render() {
+        return (
+            <div role="tabpanel"
+                className={this.props.index === 0? 'tab-pane fade active in' : 'tab-pane fade'}
+                id={this.props.item.id} aria-labelledby={this.props.item.id + '-tab'}
+                key={this.props.index}>
+                <div className="w3_agile_featured_movies"> 
+                    {this._renderLayout()}
                 </div>
             </div>
         );

@@ -30,7 +30,7 @@
     background: transparent none repeat 0 0;
 }
 .zs-enabled.overlay-dots .home_slider:after {
-    background-image: url(../images/dots.png);
+    background-image: url("/images/dots.png");
 }
 .owl-dots{
     position: absolute;
@@ -105,15 +105,14 @@ div.fexi_header_para span {
     letter-spacing: 1px;
     text-transform: uppercase;
 }
-ul.resp-tabs-list{ text-align: center;display: table;}
+ul.resp-tabs-list{ text-align: center;display: table; width:auto; }
 .resp-tabs-list li > a{color: white; font-weight: 600; text-decoration: none;}
 .resp-tabs-list li.active > a{    background: #02a388;}
-.tab-pane.fade{display: none;}
-.tab-pane.fade.in{display: block;}
+
 .w3_agile_featured_movies{display: table; width: 100%;}
 ul.dropdown-menu.columns-3 li {width:33%; display: inline-block;}
 ul.dropdown-menu > li > a{padding: 4px 10px;}
-.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{background:#666;}
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{background:none;    color: #fe423f;}
 /*============ Block-Footer =============*/
 .w3l-movie-text h6 a{overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block;}
 .wthree_agile_login ul li{margin: 0 2px;}
@@ -180,4 +179,64 @@ ul.w3-tag2 li {
     box-shadow: 0 2.5em 0 -1.3em; }
   40% {
     box-shadow: 0 2.5em 0 0; } }
+
+    
+// Header Smart Search 
+// -----------------------------------------------------------------------------
+
+.box-results {
+	z-index: 889;
+	text-align: left;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background: #fff;
+	border: 1px solid #ddd;
+	box-shadow: 0px 4px 7px 0px rgba(0,0,0,0.1);
+	overflow: hidden;
+	top: calc(100% -  1px);
+    position: absolute;
+
+	display: none;
 	
+	&.active{display: block;}
+	.smartSearch-product {
+		display:block;
+		width:100%;
+	  	float:left;
+		clear:both;
+		padding:  10px 10px;
+		border-bottom: 1px solid #f3f3f3;
+		&:hover{
+			background:#f7f7f7;
+		}
+		
+	}
+	.smartSearch-mainbody{
+		max-height: 404px;
+		overflow-y: scroll;
+	
+	}
+	.main-loader{    padding: 15px 0 30px 0;min-height: 100px;}
+	.smartSearch-noproduct{text-align: center;padding: 30px 10px;}
+	.smartSearch-results{padding: 5px ; text-align: center;    background: #ececec; clear: both; width: 100%;}
+    .content-item{overflow: hidden; padding: 5px 0;}
+    div.fexi_header_para{margin-top:5px;}
+	.thumbnail {
+		float: left;
+		width: 80px;
+        margin-right:  15px;
+        margin-bottom: 0;
+		padding: 0;
+	}
+	  	
+	.title {
+		font-size:14px; 
+		font-weight: bold;
+	}
+	.description{font-size:13px;color:#666;}
+
+	  
+	
+
+  }

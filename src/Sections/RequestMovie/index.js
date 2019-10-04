@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {getMovieList} from '../../Services';
 import {getConfiguration} from '../../Services';
 import Card from '../../Product/card';
+import Loading from '../Loading';
 
 export default class TopMovie extends Component {
 
@@ -190,17 +191,28 @@ export default class TopMovie extends Component {
    
     _renderVideolList = () => {
         const {videoList} = this.state;
+        const {isLoading} = this.state;
         const {videoNowPlaying} = this.state;
-        
-        const itemVideo = videoList.map((item, index) => {
-            if(item && videoNowPlaying.length > 0) {
-                return (
-                    <Card item={item} key={index} latest={videoNowPlaying} class_sfx="requested-movies" />
-                );
-            }
-            return false;
-        });
-        return itemVideo;
+
+        if (isLoading) return <Loading/>
+
+        if(videoList.length > 0 ){
+            const itemVideo = videoList.map((item, index) => {
+                if(item && videoNowPlaying.length > 0) {
+                    return (
+                        <Card item={item} key={index} latest={videoNowPlaying} class_sfx="requested-movies" />
+                    );
+                }
+                return false;
+            });
+            return itemVideo;
+        }else{
+            return (
+                <div className="text-center" style={{margin: '5rem 0'}}>Sorry, there are no item</div>
+            )
+        }
+
+       
     }
 
     

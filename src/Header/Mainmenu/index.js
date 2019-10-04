@@ -18,10 +18,9 @@ export default class Mainmenu extends Component {
         const tvSeriesMenu = new MenuItem(3, 'tv - series', '/tv-series',false);
         const news = new MenuItem(4, 'news', '/news',false);
         const country = new MenuItem(5, 'Country', '/country',false);
-        const azList = new MenuItem(6, 'A - z list', 'a-z-list',false);
         const contact = new MenuItem(6, 'Contact', '/contact',false);
 
-        return [homeMenu, genres, tvSeriesMenu, news, country, azList,contact];
+        return [homeMenu, genres, tvSeriesMenu, news, country,contact];
     }
 
     _renderMenuItem = () => {
@@ -29,7 +28,6 @@ export default class Mainmenu extends Component {
         const item = menuList.map((item, index) => {
             if(item._megamenu === false) {
                 return (
-                    // <li className={index === 0 ? 'active' : ''} key={index}><a href={herfValue}>{item._name}</a></li>
                     <li key={index}>
                         <NavLink
                             exact={index === 0 ? true : false}
