@@ -39,6 +39,36 @@ export const getConfiguration = () => {
     return axios.get(path);
 
 };
+export const getMovieDetail = (params) => {
+    const apiVersion = '3';
+    const id  = params.id;
+    const language  = 'en-US';
+    const apiName   = params.apiName;
+    const paramsUrl = `api_key=${API_KEY}&language=${language}`;
+
+    const path = `${END_POINT}/${apiVersion}/${apiName}/${id}?${paramsUrl}`;
+
+    return axios.get(path);
+};
+export const getMovieVideo = (id,apiName) => {
+    const apiVersion = '3';
+    const language  = 'en-US';
+    const paramsUrl = `api_key=${API_KEY}&language=${language}`;
+    const path = `${END_POINT}/${apiVersion}/${apiName}/${id}/videos?${paramsUrl}`;
+    return axios.get(path);
+};
+
+export const getListComment = (params) => {
+    const apiVersion = '3';
+    const apiName   = params.apiName;
+    const id   = params.id;
+    const page   = '1';
+    const language  = 'en-US';
+    const paramsUrl = `api_key=${API_KEY}&language=${language}&page=${page}`;
+    const path = `${END_POINT}/${apiVersion}/${apiName}/${id}/reviews?${paramsUrl}`;
+    //console.log(path);
+    return axios.get(path);
+}
 
 export const getListMegaMenu = () => {
     const apiVersion = '3';

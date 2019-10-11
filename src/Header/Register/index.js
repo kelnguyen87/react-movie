@@ -28,7 +28,7 @@ export default class Register extends Component {
                         </div>
                         <div className="col-md-6 wthree_share_agile">
                                     
-                                    <div className="single-agile-shar-buttons">
+                             <div className="single-agile-shar-buttons">
                                     <ul>
                                 <li>
                                     <div className="fb-like" data-href="https://www.facebook.com/w3layouts" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>

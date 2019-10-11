@@ -57,24 +57,9 @@ export default class Mainmenu extends Component {
         const {menuList} = this.state;
         if(menuList.length > 0) {
             return (
-                <nav className="navbar navbar-default">
-                    <div className="navbar-header navbar-left">
-                    <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span className="sr-only">Toggle navigation</span>
-                        <span className="icon-bar" />
-                        <span className="icon-bar" />
-                        <span className="icon-bar" />
-                    </button>
-                    </div>
-                    {/* Collect the nav links, forms, and other content for toggling */}
-                    <div className="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-                        <nav>
-                            <ul className="nav navbar-nav">
-                                { this._renderMenuItem() }
-                            </ul>
-                        </nav>
-                    </div>
-                </nav>
+                <ul className="nav navbar-nav">
+                { this._renderMenuItem() }
+            </ul>
             );
         }else {
             return '';
@@ -83,10 +68,9 @@ export default class Mainmenu extends Component {
 
     render() {
         return (
-            <div className="movies_nav">
-                <div className="container">
+            <div className="collapse navbar-collapse">
                     {this._renderMenuItemLayout()}
-                </div>
+               
             </div>
         );
     }

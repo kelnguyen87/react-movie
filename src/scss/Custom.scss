@@ -2,8 +2,23 @@
 #demo-1 {
     position: relative;
     width: 100%;
-    min-height: 658px;
+   
     background-color: #c7c7c7;
+    &.zs-enabled{ min-height: 658px;}
+}
+.banner-inner {
+  background: url("/images/1.jpg") no-repeat 0px 0px;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -ms-background-size: cover;
+  min-height: 200px!important;
+}
+.banner-inner-dott {
+  background: url("/images/dots.png") repeat 0px 0px;
+  text-align: center;
+  padding-bottom: 150px;
 }
 .demo-inner-content {
     position: relative;
@@ -105,6 +120,9 @@ div.fexi_header_para span {
     letter-spacing: 1px;
     text-transform: uppercase;
 }
+.w3_breadcrumb ul.breadcrumb{
+  margin:0;background:none;
+}
 ul.resp-tabs-list{ text-align: center;display: table; width:auto; }
 .resp-tabs-list li > a{color: white; font-weight: 600; text-decoration: none;}
 .resp-tabs-list li.active > a{    background: #02a388;}
@@ -112,7 +130,9 @@ ul.resp-tabs-list{ text-align: center;display: table; width:auto; }
 .w3_agile_featured_movies{display: table; width: 100%;}
 ul.dropdown-menu.columns-3 li {width:33%; display: inline-block;}
 ul.dropdown-menu > li > a{padding: 4px 10px;}
+.latest-news-agile-info .single-agile-shar-buttons{margin-top: 2rem;}
 .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{background:none;    color: #fe423f;}
+.response-text-right .btn-showmore{color: #000; cursor: pointer; display: block;text-align: right;}
 /*============ Block-Footer =============*/
 .w3l-movie-text h6 a{overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block;}
 .wthree_agile_login ul li{margin: 0 2px;}
