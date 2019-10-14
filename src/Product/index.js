@@ -7,7 +7,6 @@ import ShareThis from '../Sections/ShareThis';
 import WriteAuthor from './WriteAuthor';
 import HotTopics from './HotTopics';
 import LatestTrailer from './LatestTrailer';
-import LatestMovie from '../Footer/LatestMovie';
 class Product extends Component {
     constructor(props) {
         super(props);

@@ -42,7 +42,7 @@ export default class Slideshow extends Component {
         
     }
     componentDidUpdate(prevProps) {
-        window.initHomeSlider();
+        //window.initHomeSlider();
     }
 
     shouldComponentUpdate(nextProps, nextState) {        
@@ -93,7 +93,7 @@ export default class Slideshow extends Component {
                     if(movie.backdrop_path !== null) {
                         imagePath = configPath + movie.backdrop_path;
                     }
-                    if(index < totalItem && index > 0){
+                    if(index < totalItem){
                         return {
                             id: `${movie.id}`,
                             title: `${movie.title}`,
@@ -124,39 +124,33 @@ export default class Slideshow extends Component {
 
     _renderCarouselList = () => {
         const {resource} = this.state;
-       
-        const itemCarousel = resource.map((item, index) => {
+        let itemImage = [];
+        resource.map((item, index) => {
             if(item) {
-                return (
-                    <div className="heroCarousel--item" key={index}>
-                        <img className="collection-img img-responsive" alt="SS Nova" src={item.images}  />
-                    </div>
-                );
-            }else{
-                return false;
+                itemImage.push(item.images)
+                itemImage.push(",")
             }
+            return false;
         });
-        return itemCarousel;
+
+        console.log(itemImage);
+        return itemImage;
     }
 
+    _renderLayout = () => {
+        const {isLoading} = this.state;
+        if (isLoading) return <div className="zs-slideshow"><Loading/></div>
+        
+            return (
+                this._renderCarouselList()
+            );
+       
+            
+        
+    }
     
     render() {
-        const {isLoading} = this.state;
-        if (isLoading) {
-            return (
-                <div className="zs-slideshow"><Loading/></div>
-            );
-        } else {
-            return (
-                <div className="zs-slideshow">
-                    <div className="owl-carousel owl-theme home_slider">
-                        {this._renderCarouselList()}
-                    </div>
-                
-                </div>
-                
-            );
-        }
+        return this._renderLayout();
     }
 }
 

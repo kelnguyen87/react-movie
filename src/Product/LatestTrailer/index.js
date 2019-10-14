@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {getMovieList} from '../../Services';
 import {getConfiguration} from '../../Services';
-import Card from '../../Product/card';
 import CardSingle from '../../Product/card-single';
 import Loading from '../../Sections/Loading';
 
