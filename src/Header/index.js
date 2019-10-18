@@ -9,10 +9,11 @@ import Slideshow from '../Sections/Slideshow';
 
 export default class Header extends Component {
 
-    componentDidMount() {
-       window.initZoomSlider();
+    componentDidUpdate(prevProps) {
+      window.initHomeSlider();
     }
 
+   
    
     _renderLayout= () =>{
         return (

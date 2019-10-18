@@ -4,7 +4,7 @@ import Home from './Home';
 import Header from './Header';
 import Footer from './Footer';
 import VideoDetail from './Product';
-
+import Genres from './Category';
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
             <Header/>
             <Route  exact path="/" component={Home} />
             <Route path="/video/:id" component={VideoDetail} />
+            <Route path="/genres/:id" component={Genres} />
             <Footer/>
         </div>
         
