@@ -67,10 +67,13 @@ export default class Content extends Component {
 
     _getMovieList = (page,nextID) => {
         let params = this.props.params;
+       
         if(nextID) {
             params.id = nextID;
         }
         params.page = page;
+       
+
         let getMovieListPromise = getMovieList(params);
         getMovieListPromise.then(response =>
             response.data.results.map(
@@ -100,8 +103,10 @@ export default class Content extends Component {
     _promisAll = (page,nextID) => {
         const promiseGetConfig = this._getConfiguration();
         const promisGetMovieList = this._getMovieList(page,nextID);
+       
         const combinePromise = Promise.all([promiseGetConfig, promisGetMovieList]);
         const resource = this.props.params.resource;
+
         combinePromise.then(values => {
             if (values) {
                 const configImages = values[0].data.images;
@@ -111,28 +116,20 @@ export default class Content extends Component {
 
                 let movieList = values[1].data.results.map(
                     (function (movie) {
-                        let name = '';
-                        let date = '';
                         
                         if(movie.poster_path !== null) {
                             imagePath = configPath + movie.poster_path;
                         }
 
-                        name = (resource === 'tv') ? movie.name : movie.title
-                        date = (resource === 'tv') ? movie.first_air_date : movie.release_date
-                        
-                        if(date === undefined) {
-                            date = '';
-                        }
 
                         return {
                            
                             id: `${movie.id}`,
-                            title: `${name}`,
+                            title: `${movie.title}`,
                             desc: `${movie.overview}`,
                             images:`${imagePath}`,
                             vote_average: `${movie.vote_average}`,
-                            date: `${date}`,
+                            date: `${movie.release_date}`,
                         };
                     })
                 )
@@ -151,7 +148,7 @@ export default class Content extends Component {
         const {movieList} = this.state;
         const item = movieList.map((item, index) => {
             return (
-                <div className="col-md-3 w3l-movie-gride-agile" key={index}>
+                <div className="col-md-3 w3l-movie-gride-agile requested-movies" key={index}>
                    <Card item={item} key={index}  class_sfx="w3l-movie-gride-slider" />
                 </div>
             )
@@ -163,7 +160,7 @@ export default class Content extends Component {
         const {movieList} = this.state;
         if(movieList.length > 0) {
             return (
-                <div className="browse-inner row">
+                <div className="wthree_agile-requested-movies clearfix">
                     { this._renderProductItem() }
                 </div>
             );
@@ -215,9 +212,9 @@ export default class Content extends Component {
         const {total_pages} = this.state;
         if(total_pages > 1) {
             return (
-                <div className="blog-pagenat-wthree">
+                <div className="blog-pagenat-wthree clearfix">
                     <ul>
-                        <li><span className="frist" onClick={() => this._plusPage(-1)}>Prev</span></li>
+                        <li><span className="first" onClick={() => this._plusPage(-1)}>Prev</span></li>
                         {this._renderPagination(this.state.total_pages)}
                         <li><span className="last" onClick={() => this._plusPage(1)}>Next</span></li>
                     </ul>
@@ -231,7 +228,7 @@ export default class Content extends Component {
     render() {
        
         return (
-            <div>
+            <div className="form-group clearfix">
                 {this._renderProductItemLayout()}
                 {this._renderLayoutPagination()}
             </div>

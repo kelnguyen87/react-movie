@@ -1487,7 +1487,7 @@ ul.w3l-sider-list li i {
 	margin-right: 1em;
 }
 
-.blog-pagenat-wthree ul li a {
+.blog-pagenat-wthree ul li span {
 	display: block;
 	background: #fff;
 	padding: 8px 1.1em;
@@ -1499,15 +1499,16 @@ ul.w3l-sider-list li i {
 	margin-top: 1em;
 	text-decoration: none;
 	border: none;
+	cursor: pointer;
 }
 
-.blog-pagenat-wthree ul li a:hover {
+.blog-pagenat-wthree ul li span:hover {
 	background: #29292A;
 	color: #fff;
 }
 
-.blog-pagenat-wthree ul li a.frist,
-.blog-pagenat-wthree ul li a.last {
+.blog-pagenat-wthree ul li span.first,
+.blog-pagenat-wthree ul li span.last {
 	background: #fe423f;
 	color: #fff;
 }
@@ -3698,7 +3699,7 @@ ul.bottom-links-agile li a {
 	div#home {
 		padding: 0em 0 0;
 	}
-	.blog-pagenat-wthree ul li a {
+	.blog-pagenat-wthree ul li span {
 		padding: 8px 1em;
 	}
 	.cd-header-buttons {

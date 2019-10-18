@@ -7,7 +7,7 @@ export default class Category extends Component {
         super(props);
         this.state = {
             params: {
-                sort_by: 'release_date.desc',
+                sort_by: 'popularity.desc',
                 apiName: 'discover',
                 resource: 'movie'
             }
@@ -16,18 +16,15 @@ export default class Category extends Component {
     
     render() {
         return (
-            <div className="general-agileits-w3l">
-                <div className="w3l-medile-movies-grids">
-                    <div className="browse-agile-w3ls general-w3ls">
-                        <div className="tittle-head">
-                            <Breadcrumb subitem="Genres" />
-                        </div>
-                        <div className="container">
-                            <Content params={this.state.params} />
-                        </div>
-                    </div>                    
+            <div className="w3_content_genre">
+                <Breadcrumb subitem="Genres" />
+                <div className="w3_content_agilleinfo_inner">
+                    <div className="agile_featured_movies">
+                        <Content params={this.state.params} />
+                    </div>
                 </div>
             </div>
+            
         );
     }
 

@@ -5,6 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import VideoDetail from './Product';
 import Genres from './Category';
+import Children from './Category/Children';
 
 function App() {
   return (
@@ -14,7 +15,9 @@ function App() {
             <Header/>
             <Route  exact path="/" component={Home} />
             <Route path="/video/:id" component={VideoDetail} />
-            <Route path="/genres/:id" component={Genres} />
+            <Route path="/genres/" component={Genres} />
+            <Route path="/genres/:id" component={Children} />
+          
             <Footer/>
         </div>
         
