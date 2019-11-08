@@ -17,7 +17,8 @@ export default class Category extends Component {
     render() {
         return (
             <div className="w3_content_genre">
-                <Breadcrumb subitem="Genres" />
+               
+                <Breadcrumb name="Genres" link="/genres"  />
                 <div className="w3_content_agilleinfo_inner">
                     <div className="agile_featured_movies">
                         <Content params={this.state.params} />

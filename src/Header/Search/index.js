@@ -202,7 +202,7 @@ export default class Search extends Component {
                         <form action={'/search/'+this.state.query} >
                             <input type="text"
                                     name="Search" placeholder="Search"
-                                    onChange={(event) => this._onChange(event)}
+                                    onChange={this._onChange}
                                     autoComplete="off" required />
                           
                         

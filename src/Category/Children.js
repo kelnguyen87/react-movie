@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {getMovieList} from '../Services';
+import Breadcrumb  from '../Breadcrumb';
 import Content from './Content';
 
 class Children extends Component {
@@ -69,19 +70,14 @@ class Children extends Component {
         console.log(this.state.params);
         return (
             
-            <div className="general-agileits-w3l">
-                <div className="w3l-medile-movies-grids">
-                    <div className="browse-agile-w3ls general-w3ls">
-                        <div className="tittle-head">
-                            <h4 className="latest-text"> Movies</h4>
-                            
-                        </div>
-                        <div className="container">
-                            <Content params={this.state.params} />
-                        </div>
-                    </div>                    
+            <div className="w3_content_genre">
+            <Breadcrumb name="Genres" link="/genres" subitem={this.state.itemDetail._name} />
+            <div className="w3_content_agilleinfo_inner">
+                <div className="agile_featured_movies">
+                    <Content params={this.state.params} />
                 </div>
             </div>
+        </div>
         );
     }
 }

@@ -19,6 +19,22 @@ class Breadcrumb extends Component {
         );
     }
 
+    _renderItemGenres = () => {
+        if(this.props.link) {
+            return(
+                <li className="active">
+                    <NavLink
+                        exact={true}
+                        to={this.props.link}>{this.props.name}</NavLink>
+                </li>
+            );
+        }else {
+            return(
+                <li className="active">{this.props.name}</li>
+            );
+        }
+    }
+
     _renderChildItem = () => {
         if(this.props.subitem) {
             return(
@@ -33,6 +49,7 @@ class Breadcrumb extends Component {
         return(
             <ul className="breadcrumb">
                 {this._renderItemHome()}
+                {this._renderItemGenres()}
                 {this._renderChildItem()}
             </ul>
         );

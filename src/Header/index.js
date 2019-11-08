@@ -13,13 +13,12 @@ export default class Header extends Component {
       window.initHomeSlider();
     }
 
-   
-   
     _renderLayout= () =>{
+        //console.log(history.isActive('/'));
         return (
             <div className="mainheader">
                 <div id="demo-1"  data-zs-src='["images/2.jpg", "images/1.jpg", "images/3.jpg","images/4.jpg"]' data-zs-overlay="dots" className ={window.location.pathname.length > 1 ? "banner-inner": "zs-enabled overlay-dots"}>
-                    <div className={window.location.pathname.length > 1 ? "banner-inner-dott": "demo-inner-content"}>
+                    <div className= "demo-inner-content">
                         <div className="header-w3-agileits" id="home">
                             <div className="inner-header-agile part2">	
                                 <nav className="navbar navbar-default">

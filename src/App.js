@@ -8,15 +8,17 @@ import Genres from './Category';
 import Children from './Category/Children';
 
 function App() {
+ 
   return (
      <Router>
         <div className="App">
             
             <Header/>
             <Route  exact path="/" component={Home} />
-            <Route path="/video/:id" component={VideoDetail} />
-            <Route path="/genres/" component={Genres} />
+            <Route exact path="/genres" component={Genres} />
             <Route path="/genres/:id" component={Children} />
+            <Route path="/video/:id" component={VideoDetail} />
+            
           
             <Footer/>
         </div>
