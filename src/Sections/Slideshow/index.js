@@ -31,24 +31,24 @@ export default class Slideshow extends Component {
                     ]
                 }
             }
-           
+
         };
     }
-    
-   
+
+
     componentDidMount() {
         this._promisAll();
-        
-        
+
+
     }
     componentDidUpdate(prevProps) {
-        //window.initHomeSlider();
+        window.initHomeSlider();
     }
 
-    shouldComponentUpdate(nextProps, nextState) {        
+    shouldComponentUpdate(nextProps, nextState) {
         return this.state !== nextState;
     }
-    
+
     _setSSConfig = (configImages) => {
         sessionStorage.setItem("configImage", JSON.stringify(configImages));
     }
@@ -70,7 +70,7 @@ export default class Slideshow extends Component {
         let promiseGetConfig;
         if(ssConfig === null) promiseGetConfig = getConfiguration();
         else promiseGetConfig = ssConfig;
-       
+
         //Get movie List
         const getMovieListPromise = getMovieList(params);
         const combinePromise = Promise.all([promiseGetConfig, getMovieListPromise]);
@@ -82,14 +82,14 @@ export default class Slideshow extends Component {
                 this._setSSConfig(configImages);
             }
             const configPathImages = configImages.data.images;
-            
+
             const configPath = configPathImages.base_url + configPathImages.backdrop_sizes[2] ;
-         
+
             let imagePath = '/images/backdrop_sizes/745x400.png';
             let totalItem = 4;
             const movieList = values[1].data.results.map(
                 (function (movie, index) {
-                 
+
                     if(movie.backdrop_path !== null) {
                         imagePath = configPath + movie.backdrop_path;
                     }
@@ -99,15 +99,15 @@ export default class Slideshow extends Component {
                             title: `${movie.title}`,
                             desc: `${movie.overview}`,
                             images: `${imagePath}`
-                        };    
+                        };
                     }else{
                         return false;
                     }
-                                      
-                    
+
+
                 })
             )
-           
+
             this.setState({
                 isLoading: false,
                 resource: movieList
@@ -117,10 +117,10 @@ export default class Slideshow extends Component {
              console.log(error);
         });
 
-       
+
     };
-    
-    
+
+
 
     _renderCarouselList = () => {
         const {resource} = this.state;
@@ -133,22 +133,22 @@ export default class Slideshow extends Component {
             return false;
         });
 
-        console.log(itemImage);
+
         return itemImage;
     }
 
     _renderLayout = () => {
         const {isLoading} = this.state;
-        if (isLoading) return <div className="zs-slideshow"><Loading/></div>
-        
-            return (
-                this._renderCarouselList()
-            );
-       
-            
-        
+
+
+        return (
+            this._renderCarouselList()
+        );
+
+
+
     }
-    
+
     render() {
         return this._renderLayout();
     }

@@ -18,14 +18,14 @@ class Children extends Component {
 
     componentDidMount() {
         this._getDetailList(this.props.match.params.id);
-       
+
      }
 
     shouldComponentUpdate(nextProps, nextState) {
         const currentId = this.props.match.params.id;
         const nextId = nextProps.match.params.id;
-        
-       
+
+
 
         const shouldQuery = currentId !== nextId;
         if(shouldQuery){
@@ -46,7 +46,7 @@ class Children extends Component {
             id: id,
             apiName: 'genre'
         };
-       
+
         const getDetailListPromise = getMovieList(params);
         getDetailListPromise
         .then(response =>
@@ -60,16 +60,16 @@ class Children extends Component {
                 itemDetail
             });
         })
-       
+
         .catch(function(error){
             console.log(error);
         });
     }
 
     render() {
-        console.log(this.state.params);
+
         return (
-            
+
             <div className="w3_content_genre">
             <Breadcrumb name="Genres" link="/genres" subitem={this.state.itemDetail._name} />
             <div className="w3_content_agilleinfo_inner">
