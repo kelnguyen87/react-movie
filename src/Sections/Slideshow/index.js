@@ -41,13 +41,8 @@ export default class Slideshow extends Component {
 
 
     }
-    componentDidUpdate(prevProps) {
-        window.initHomeSlider();
-    }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return this.state !== nextState;
-    }
+
 
     _setSSConfig = (configImages) => {
         sessionStorage.setItem("configImage", JSON.stringify(configImages));
@@ -128,7 +123,7 @@ export default class Slideshow extends Component {
         resource.map((item, index) => {
             if(item) {
                 itemImage.push(item.images)
-                itemImage.push(",")
+
             }
             return false;
         });
@@ -137,20 +132,10 @@ export default class Slideshow extends Component {
         return itemImage;
     }
 
-    _renderLayout = () => {
-        const {isLoading} = this.state;
 
-
-        return (
-            this._renderCarouselList()
-        );
-
-
-
-    }
 
     render() {
-        return this._renderLayout();
+        return this._renderCarouselList();
     }
 }
 
