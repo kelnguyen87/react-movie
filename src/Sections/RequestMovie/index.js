@@ -10,9 +10,8 @@ export default class TopMovie extends Component {
         super(props);
         this.state = {
             isLoading: true,
-         
+
             videoList: [],
-            videoNowPlaying: [],
             configuration: {
                 images: {
                     "base_url": "",
@@ -34,23 +33,23 @@ export default class TopMovie extends Component {
                     ]
                 }
             }
-           
+
         };
     }
-    
-   
+
+
     componentDidMount() {
         this._promisAll();
-        
+
     }
     componentDidUpdate(prevProps) {
-       
+
     }
 
-    shouldComponentUpdate(nextProps, nextState) {        
+    shouldComponentUpdate(nextProps, nextState) {
         return this.state !== nextState;
     }
-    
+
     _setSSConfig = (configImages) => {
         sessionStorage.setItem("configImage", JSON.stringify(configImages));
     }
@@ -72,12 +71,12 @@ export default class TopMovie extends Component {
                     return {
                         id: `${movie.id}`,
                         title: `${movie.title}`,
-                    };   
+                    };
                 }
             )
-           
+
         });
-        
+
     }
 
     _getCategory = () => {
@@ -94,12 +93,12 @@ export default class TopMovie extends Component {
                         {id: `${result.id}`,
                         name: `${result.name}`}
                     )
-                    
-                    return   false;  
-                    
+
+                    return   false;
+
                 }
             )
-           
+
         });
         return allCategory;
     }
@@ -115,12 +114,12 @@ export default class TopMovie extends Component {
         let promiseGetConfig;
         if(ssConfig === null) promiseGetConfig = getConfiguration();
         else promiseGetConfig = ssConfig;
-       
+
         //Get movie List
         const getMovieListPromise = getMovieList(params);
         const combinePromise = Promise.all([promiseGetConfig, getMovieListPromise]);
 
-       
+
         combinePromise.then(values => {
 
             const configImages = values[0];
@@ -128,37 +127,25 @@ export default class TopMovie extends Component {
                 this._setSSConfig(configImages);
             }
             const configPathImages = configImages.data.images;
-           
+
             const configPath = configPathImages.base_url + configPathImages.backdrop_sizes[0] ;
             let imagePath = 'http://placehold.jp/300x169.png';
-            
+
             // Change value totalItem
             const totalItem = 12;
-            
-            //Get video Now Playing
-            const movielatest = this._getNowPlaying();
-            movielatest.then(movie => {
-                const mapMovielatest = movie.map( (result, index) => {
-                    return result
-                        
-                })
-                this.setState({
-                    videoNowPlaying: mapMovielatest,
-                });
-               
-            })
-            
+
+
             //Get Genres
             //const getGenres = this._getCategory();
-            
+
 
             const movieList = values[1].data.results.map(
                 (function (movie, index) {
-                    
+
                     if(movie.poster_path !== null) {
                         imagePath = configPath + movie.poster_path;
                     }
-                    
+
                     if(index < totalItem ){
                         return {
                             id: `${movie.id}`,
@@ -167,15 +154,15 @@ export default class TopMovie extends Component {
                             desc: `${movie.overview}`,
                             images: `${imagePath}`,
                             vote_average:`${movie.vote_average}`,
-                        };    
+                        };
                     }
                     return false;
-                      
+
                 })
             )
-            
-           
-            
+
+
+
             this.setState({
                 isLoading: false,
                 videoList: movieList
@@ -186,21 +173,20 @@ export default class TopMovie extends Component {
         });
 
     };
-    
-    
-   
+
+
+
     _renderVideolList = () => {
         const {videoList} = this.state;
         const {isLoading} = this.state;
-        const {videoNowPlaying} = this.state;
 
         if (isLoading) return <Loading/>
 
         if(videoList.length > 0 ){
             const itemVideo = videoList.map((item, index) => {
-                if(item && videoNowPlaying.length > 0) {
+                if(item ) {
                     return (
-                        <Card item={item} key={index} latest={videoNowPlaying} class_sfx="requested-movies" />
+                        <Card item={item} key={index}  class_sfx="requested-movies" />
                     );
                 }
                 return false;
@@ -212,18 +198,18 @@ export default class TopMovie extends Component {
             )
         }
 
-       
+
     }
 
-    
+
     render() {
         return (
             <div className="section-movies">
                 <h3 className="agile_w3_title">Requested  <span>Movies</span> </h3>
                 <div className="wthree_agile-requested-movies">
-                    {this._renderVideolList()}    
+                    {this._renderVideolList()}
                     <div className="cleafix"></div>
-                   
+
                 </div>
             </div>
         );

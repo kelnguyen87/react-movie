@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {getMovieList} from '../../Services';
+import {getMovieList} from './index';
 import { NavLink } from "react-router-dom";
 
-export default class ReviewMovie extends Component {
+export default class LayoutGenre extends Component {
 
     constructor(props) {
         super(props);
@@ -54,16 +54,21 @@ export default class ReviewMovie extends Component {
 
     _renderItemlList = () => {
         const {resource} = this.state;
+        const {genre} = this.props;
 
         const path = '/genres/';
         const itemCarousel = resource.map((item, index) => {
-            return (
-                <li key={index}>
-                    <NavLink to={path + item.id}>
-                        {item.name}
-                    </NavLink>
-                </li>
-            );
+            if(genre.indexOf(item.id)!== -1){
+                return (
+                    <li key={index}>
+                        <NavLink to={path + item.id}>
+                            {item.name}
+                        </NavLink>
+                    </li>
+                );
+            }
+            return false;
+
         });
         return itemCarousel;
     }
@@ -71,13 +76,14 @@ export default class ReviewMovie extends Component {
 
     render() {
         return (
-            <div className="col-md-2 footer-grid">
-               <h4>Review Movies</h4>
-               <ul className="w3-tag2">
-                {this._renderItemlList()}
-               </ul>
+            <div className="fexi_header_para">
+                 <span>Genres<label>:</label> </span>
+                 <ul className="w3-tag2">
+                               {this._renderItemlList()}
+                  </ul>
 
-            </div>
+             </div>
+
 
         );
     }

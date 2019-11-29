@@ -25,15 +25,18 @@ export const renderLayoutDate = (date) => {
         let y = d.getFullYear();
         return y;
     }
-    
+
 };
 
 export const renderNewlabel = (allItemLatest,itemcurrent) => {
     let itemNewLabel = [];
-    allItemLatest.map( (result, index) => {
-        if(result.id === itemcurrent) itemNewLabel.push(<div className="ribben" key={index}><p>NEW</p></div>);
-        return false;
-    })
-    return itemNewLabel;
-    
+    if(allItemLatest.length > 0){
+        allItemLatest.map( (result, index) => {
+            if(result.id === itemcurrent) itemNewLabel.push(<div className="ribben" key={index}><p>NEW</p></div>);
+            return false;
+        })
+        return itemNewLabel;
+    }
+    return false;
+
 };

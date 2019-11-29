@@ -6,7 +6,6 @@ import Search from './Search';
 import Banner from './Banner';
 import Register from './Register';
 import Logo from './Logo';
-import Slideshow from '../Sections/Slideshow';
 import {getConfiguration, getMovieList} from "../Services";
 
 class Header extends Component {
@@ -49,6 +48,7 @@ class Header extends Component {
     }
 
     componentDidUpdate(prevProps) {
+
         window.initHomeSlider();
     }
 
@@ -120,9 +120,7 @@ class Header extends Component {
                 console.log(error);
             });
 
-
     };
-
 
 
     _renderCarouselList = () => {
@@ -130,9 +128,7 @@ class Header extends Component {
         let itemImage = [];
         resource.map((item, index) => {
             if(item) {
-
                 itemImage.push('"'+item.images+'"')
-
             }
             return false;
         });
@@ -143,11 +139,11 @@ class Header extends Component {
 
     _renderLayout= () =>{
         const pathNameLength = this.props.location.pathname.length;
-        const slideShow = pathNameLength === 1  ? this._renderCarouselList(): '' ;
+        const slideShow = pathNameLength === 1  ? "["+this._renderCarouselList()+"]": '' ;
         const banner = pathNameLength > 1  ? <Banner/>: '' ;
         return (
             <div className="mainheader">
-                <div id="demo-1"  data-zs-src= {"["+slideShow+"]"}  data-zs-overlay="dots" className ="zs-enabled overlay-dots">
+                <div id="demo-1"  data-zs-src= {slideShow}  data-zs-overlay="dots" className ={pathNameLength > 1 ? "banner-inner": "zs-enabled overlay-dots"}>
 
 
                 <div className= "demo-inner-content">

@@ -39,7 +39,7 @@ export default class Content extends Component {
         const page = this.state.page;
         this._promisAll(page);
     }
-    
+
     shouldComponentUpdate(nextProps, nextState) {
         const currentId = this.props.params.id;
         const nextId = nextProps.params.id;
@@ -57,7 +57,7 @@ export default class Content extends Component {
         const getConfigurationPromise = getConfiguration();
         getConfigurationPromise
         .then(response => {
-           
+
         })
         .catch(function(error){
             console.log(error);
@@ -67,12 +67,12 @@ export default class Content extends Component {
 
     _getMovieList = (page,nextID) => {
         let params = this.props.params;
-       
+
         if(nextID) {
             params.id = nextID;
         }
         params.page = page;
-       
+
 
         let getMovieListPromise = getMovieList(params);
         getMovieListPromise.then(response =>
@@ -84,7 +84,7 @@ export default class Content extends Component {
                     images: `${movie.poster_path}`,
                     vote_average: `${movie.vote_average}`,
                     date: `${movie.release_date}`,
-                
+
                 })
             )
         )
@@ -103,9 +103,8 @@ export default class Content extends Component {
     _promisAll = (page,nextID) => {
         const promiseGetConfig = this._getConfiguration();
         const promisGetMovieList = this._getMovieList(page,nextID);
-       
+
         const combinePromise = Promise.all([promiseGetConfig, promisGetMovieList]);
-        const resource = this.props.params.resource;
 
         combinePromise.then(values => {
             if (values) {
@@ -116,14 +115,14 @@ export default class Content extends Component {
 
                 let movieList = values[1].data.results.map(
                     (function (movie) {
-                        
+
                         if(movie.poster_path !== null) {
                             imagePath = configPath + movie.poster_path;
                         }
 
 
                         return {
-                           
+
                             id: `${movie.id}`,
                             title: `${movie.title}`,
                             desc: `${movie.overview}`,
@@ -133,7 +132,7 @@ export default class Content extends Component {
                         };
                     })
                 )
-                
+
                 this.setState({
                     movieList: movieList,
                     total_pages: total_pages
@@ -205,7 +204,7 @@ export default class Content extends Component {
             }
         }
         return page;
-        
+
     }
 
     _renderLayoutPagination = () => {
@@ -226,14 +225,14 @@ export default class Content extends Component {
     }
 
     render() {
-       
+
         return (
             <div className="form-group clearfix">
                 {this._renderProductItemLayout()}
                 {this._renderLayoutPagination()}
             </div>
         );
-        
+
     }
 
 }

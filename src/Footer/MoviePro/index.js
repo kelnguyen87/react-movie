@@ -31,24 +31,21 @@ export default class MoviePro extends Component {
                     ]
                 }
             }
-           
+
         };
     }
-    
-   
+
+
     componentDidMount() {
         this._promisAll();
-        
-        
-    }
-    componentDidUpdate(prevProps) {
-        window.initHomeSlider();
+
+
     }
 
-    shouldComponentUpdate(nextProps, nextState) {        
+    shouldComponentUpdate(nextProps, nextState) {
         return this.state !== nextState;
     }
-    
+
     _setSSConfig = (configImages) => {
         sessionStorage.setItem("configImage", JSON.stringify(configImages));
     }
@@ -70,7 +67,7 @@ export default class MoviePro extends Component {
         let promiseGetConfig;
         if(ssConfig === null) promiseGetConfig = getConfiguration();
         else promiseGetConfig = ssConfig;
-       
+
         //Get movie List
         const getMovieListPromise = getMovieList(params);
         const combinePromise = Promise.all([promiseGetConfig, getMovieListPromise]);
@@ -82,15 +79,15 @@ export default class MoviePro extends Component {
                 this._setSSConfig(configImages);
             }
             const configPathImages = configImages.data.images;
-            
+
             const configPath = configPathImages.base_url + configPathImages.poster_sizes[1] ;
-         
+
             let imagePath = 'http://placehold.jp/300x169.png';
             let totalItem = 6;
-           
+
             const movieList = values[1].data.results.map(
                 (function (movie, index) {
-                    
+
                     if(movie.poster_path !== null) {
                         imagePath = configPath + movie.poster_path;
                     }
@@ -100,15 +97,15 @@ export default class MoviePro extends Component {
                             title: `${movie.title}`,
                             desc: `${movie.overview}`,
                             images: `${imagePath}`
-                        };    
+                        };
                     }else{
                         return false;
                     }
-                                      
-                    
+
+
                 })
             )
-           
+
             this.setState({
                 isLoading: false,
                 resource: movieList
@@ -118,11 +115,11 @@ export default class MoviePro extends Component {
              console.log(error);
         });
 
-       
+
     };
-    
-    
-   
+
+
+
 
     _renderCarouselList = () => {
         const {resource} = this.state;
@@ -130,12 +127,12 @@ export default class MoviePro extends Component {
         const itemCarousel = resource.map((item, index) => {
             if(item) {
                 return (
-                  
+
                     <div className="footer-grid-instagram" key={index}>
                         <NavLink to={CategoryUrl + item.id}>
                             <img src={item.images}  alt="{item.title}" className="img-responsive"/>
                         </NavLink>
-                       
+
                     </div>
                 );
             }else{
@@ -145,14 +142,14 @@ export default class MoviePro extends Component {
         return itemCarousel;
     }
 
-    
+
     render() {
         return (
-            <div className="col-md-2 footer-grid"> 
+            <div className="col-md-2 footer-grid">
                <h4 className="b-log"><a href="/"><span>M</span>ovies <span>P</span>ro</a></h4>
                 {this._renderCarouselList()}
             </div>
-            
+
         );
     }
 }

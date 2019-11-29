@@ -31,24 +31,21 @@ export default class HotTopics extends Component {
                     ]
                 }
             }
-           
+
         };
     }
-    
-   
+
+
     componentDidMount() {
         this._promisAll();
-        
-        
-    }
-    componentDidUpdate(prevProps) {
-        window.initHomeSlider();
+
+
     }
 
-    shouldComponentUpdate(nextProps, nextState) {        
+    shouldComponentUpdate(nextProps, nextState) {
         return this.state !== nextState;
     }
-    
+
     _setSSConfig = (configImages) => {
         sessionStorage.setItem("configImage", JSON.stringify(configImages));
     }
@@ -70,7 +67,7 @@ export default class HotTopics extends Component {
         let promiseGetConfig;
         if(ssConfig === null) promiseGetConfig = getConfiguration();
         else promiseGetConfig = ssConfig;
-       
+
         //Get movie List
         const getMovieListPromise = getMovieList(params);
         const combinePromise = Promise.all([promiseGetConfig, getMovieListPromise]);
@@ -82,14 +79,14 @@ export default class HotTopics extends Component {
                 this._setSSConfig(configImages);
             }
             const configPathImages = configImages.data.images;
-            
+
             const configPath = configPathImages.base_url + configPathImages.poster_sizes[1] ;
-         
+
             let imagePath = '/images/backdrop_sizes/745x400.png';
             let totalItem = 6;
             const movieList = values[1].data.results.map(
                 (function (movie, index) {
-                 
+
                     if(movie.backdrop_path !== null) {
                         imagePath = configPath + movie.backdrop_path;
                     }
@@ -99,15 +96,15 @@ export default class HotTopics extends Component {
                             title: `${movie.title}`,
                             release_date: `${movie.release_date}`,
                             images: `${imagePath}`
-                        };    
+                        };
                     }else{
                         return false;
                     }
-                                      
-                    
+
+
                 })
             )
-           
+
             this.setState({
                 isLoading: false,
                 resource: movieList
@@ -117,11 +114,11 @@ export default class HotTopics extends Component {
              console.log(error);
         });
 
-       
+
     };
-    
-    
-   
+
+
+
 
     _renderCarouselList = () => {
         const {resource} = this.state;
@@ -134,9 +131,9 @@ export default class HotTopics extends Component {
                             {item.title}
                         </NavLink>
                         <p>{item.release_date}</p>
-                        
+
                     </li>
-                    
+
                 );
             }else{
                 return false;
@@ -145,7 +142,7 @@ export default class HotTopics extends Component {
         return itemCarousel;
     }
 
-    
+
     render() {
         return (
             <div className="sidebar-grid">
@@ -153,9 +150,9 @@ export default class HotTopics extends Component {
                <ul className="side-bar-agile">
                 {this._renderCarouselList()}
                </ul>
-                
+
             </div>
-            
+
         );
     }
 }

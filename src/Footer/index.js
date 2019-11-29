@@ -11,7 +11,14 @@ import MoviePro from './MoviePro';
 import CopyRight from './CopyRight';
 
 export default class Footer extends Component {
-  render() {
+
+    componentDidUpdate(prevProps) {
+        window.initOnTop();
+    }
+
+
+
+    render() {
     return (
         <div className="contact-w3ls" id="contact">
             <div className="footer-w3lagile-inner">
@@ -27,7 +34,7 @@ export default class Footer extends Component {
                 </div>
                 <FllowUs/>
                 <div className="clearfix"> </div>
-                <a href="#home" id="toTop" className="scroll" style={{display: "block"}}> <span id="toTopHover" style={{opacity: 1}}> </span></a>
+                <a href="#home" id="goToTop" className="scroll" > <span id="toTopHover" style={{opacity: 1}}> </span></a>
             </div>
             <CopyRight/>
         </div>
@@ -35,4 +42,4 @@ export default class Footer extends Component {
     );
   }
 }
- 
+

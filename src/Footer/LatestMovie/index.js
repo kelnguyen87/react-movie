@@ -31,24 +31,21 @@ export default class LatestMovie extends Component {
                     ]
                 }
             }
-           
+
         };
     }
-    
-   
+
+
     componentDidMount() {
         this._promisAll();
-        
-        
-    }
-    componentDidUpdate(prevProps) {
-        window.initHomeSlider();
+
+
     }
 
-    shouldComponentUpdate(nextProps, nextState) {        
+    shouldComponentUpdate(nextProps, nextState) {
         return this.state !== nextState;
     }
-    
+
     _setSSConfig = (configImages) => {
         sessionStorage.setItem("configImage", JSON.stringify(configImages));
     }
@@ -67,13 +64,15 @@ export default class LatestMovie extends Component {
 
         //Get config image
         const ssConfig = this._getSSConfig();
+
         let promiseGetConfig;
         if(ssConfig === null) promiseGetConfig = getConfiguration();
         else promiseGetConfig = ssConfig;
-       
+
         //Get movie List
         const getMovieListPromise = getMovieList(params);
         const combinePromise = Promise.all([promiseGetConfig, getMovieListPromise]);
+
 
         combinePromise.then(values => {
 
@@ -81,15 +80,15 @@ export default class LatestMovie extends Component {
             if(ssConfig === null) {
                 this._setSSConfig(configImages);
             }
+			//Get config path images
             const configPathImages = configImages.data.images;
-            
             const configPath = configPathImages.base_url + configPathImages.poster_sizes[1] ;
-         
+
             let imagePath = '/images/backdrop_sizes/745x400.png';
             let totalItem = 4;
             const movieList = values[1].data.results.map(
                 (function (movie, index) {
-                 
+
                     if(movie.backdrop_path !== null) {
                         imagePath = configPath + movie.backdrop_path;
                     }
@@ -99,29 +98,29 @@ export default class LatestMovie extends Component {
                             title: `${movie.title}`,
                             desc: `${movie.overview}`,
                             images: `${imagePath}`
-                        };    
+                        };
                     }else{
                         return false;
                     }
-                                      
-                    
+
+
                 })
             )
-           
+
             this.setState({
                 isLoading: false,
                 resource: movieList
             });
-         })
+        })
          .catch(function(error){
-             console.log(error);
+            console.log(error);
         });
 
-       
+
     };
-    
-    
-   
+
+
+
 
     _renderCarouselList = () => {
         const {resource} = this.state;
@@ -134,7 +133,7 @@ export default class LatestMovie extends Component {
                         <NavLink to={CategoryUrl + item.id}>
                             <img src={item.images}  alt="{item.title}" className="img-responsive"/>
                         </NavLink>
-                           
+
                         </div>
 
                         <div className="footer-grid1-right">
@@ -144,7 +143,7 @@ export default class LatestMovie extends Component {
                         </div>
                         <div className="clearfix"> </div>
                     </div>
-                    
+
                 );
             }else{
                 return false;
@@ -153,14 +152,14 @@ export default class LatestMovie extends Component {
         return itemCarousel;
     }
 
-    
+
     render() {
         return (
             <div className="col-md-2 footer-grid">
                <h4>Latest Movies</h4>
                 {this._renderCarouselList()}
             </div>
-            
+
         );
     }
 }

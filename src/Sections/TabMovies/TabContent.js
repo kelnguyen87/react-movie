@@ -38,13 +38,13 @@ export default class TabContent extends Component {
         }
     }
 
-    
+
 
     componentDidMount() {
         this._promisAll();
     }
 
-    
+
 
     _getMovieList = () => {
         let params = {
@@ -63,28 +63,28 @@ export default class TabContent extends Component {
                 params.sort_by = 'popularity.desc';
                 params.primary_release_year = '2019';
                 break;
-           
+
             case 'top_rating':
                 params.apiName = 'movie';
                 params.resource = 'top_rated';
                 params.primary_release_year = '2019';
                 break;
-           
+
             default:
                 params.sort_by = 'release_date.desc';
         }
 
         const getMovieListPromise = getMovieList(params);
-                
+
         getMovieListPromise.then(response =>
-            response.data.results.map(
-                movie => ({
+            response.data.results.map(movie => ({
                     _id: `${movie.id}`,
                     _name: `${movie.title}`,
                     _desc: `${movie.overview}`,
                     _img: `${movie.poster_path}`,
                     _vote: `${movie.vote_average}`,
                     _date: `${movie.release_date}`,
+                    _genre_ids: `${movie.genre_ids}`,
                     _badge: 'HOT'
                 })
             )
@@ -126,14 +126,14 @@ export default class TabContent extends Component {
                 const configPathImages = configImages.data.images;
                 const configPath = configPathImages.base_url + configPathImages.poster_sizes[3] + '/';
                 let imagePath = 'http://placehold.jp/300x340.png';
-                
+
                 const totalItem = 9;
 
                 let movieList = values[1].data.results.map(
-                    (function  (movie, index) {                
+                    (function  (movie, index) {
                         if(movie.poster_path !== null) {
                             imagePath = configPath + movie.poster_path;
-                        }         
+                        }
                         if(index < totalItem && index !== 0){
                             return {
                                 id: `${movie.id}`,
@@ -142,22 +142,23 @@ export default class TabContent extends Component {
                                 desc: `${movie.overview}`,
                                 images: `${imagePath}`,
                                 vote_average:`${movie.vote_average}`,
-                            };    
+                                genre_ids: `${movie.genre_ids}`,
+                            };
                         }
                         return false;
 
-                       
+
                     })
                 )
 
                 const configPathSingle = configPathImages.base_url + configPathImages.backdrop_sizes[1] ;
                 const movieSingle = values[1].data.results.map(
                     (function (movie, index) {
-                    
+
                         if(movie.backdrop_path !== null) {
                             imagePath = configPathSingle + movie.backdrop_path;
                         }
-                       
+
                         if(index === 0){
                             return {
                                 id: `${movie.id}`,
@@ -167,13 +168,13 @@ export default class TabContent extends Component {
                                 desc: `${movie.overview}`,
                                 images: `${imagePath}`,
                                 vote_average:`${movie.vote_average}`,
-                            };    
+                            };
                         }
                         return false;
-                                        
+
                     })
                 )
-                
+
                 this.setState({
                     isLoading: false,
                     videoList: movieList,
@@ -213,7 +214,7 @@ export default class TabContent extends Component {
         const {isLoading} = this.state;
         const {videoList} = this.state;
         const {videoSingle} = this.state;
-        
+
         if (isLoading) return <Loading/>
 
         if(videoList.length > 0 || videoSingle.length > 0 ){
@@ -223,10 +224,10 @@ export default class TabContent extends Component {
                         {this._renderVideolSingle()}
                     </div>
                     <div className="col-md-7 wthree_agile-movies_list ">
-                        {this._renderVideolList()}    
+                        {this._renderVideolList()}
                     </div>
-                   
-                    
+
+
                     <div className="cleafix"></div>
                 </div>
             )
@@ -235,7 +236,7 @@ export default class TabContent extends Component {
                 <div className="text-center" style={{margin: '5rem 0'}}>Sorry, there are no item</div>
             )
         }
-        
+
     }
 
     render() {
@@ -244,7 +245,7 @@ export default class TabContent extends Component {
                 className={this.props.index === 0? 'tab-pane fade active in' : 'tab-pane fade'}
                 id={this.props.item.id} aria-labelledby={this.props.item.id + '-tab'}
                 key={this.props.index}>
-                <div className="w3_agile_featured_movies"> 
+                <div className="w3_agile_featured_movies">
                     {this._renderLayout()}
                 </div>
             </div>
