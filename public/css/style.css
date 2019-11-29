@@ -1502,14 +1502,15 @@ ul.w3l-sider-list li i {
 	cursor: pointer;
 }
 
-.blog-pagenat-wthree ul li span:hover {
+.blog-pagenat-wthree ul li span:hover,
+.blog-pagenat-wthree ul li.active span{
 	background: #29292A;
 	color: #fff;
 }
 
 .blog-pagenat-wthree ul li span.first,
 .blog-pagenat-wthree ul li span.last {
-	background: #fe423f;
+	background: #29292A;
 	color: #fff;
 }
 

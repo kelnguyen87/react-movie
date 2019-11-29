@@ -2,12 +2,14 @@ import React, {Component} from 'react';
 import Card from '../../Product/card';
 import {getMovieList} from '../../Services';
 import {getConfiguration} from '../../Services';
+import Loading from '../../Sections/Loading';
 
 
 export default class Content extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isLoading: true,
             movieList: {},
             page: 1,
             total_pages: 0,
@@ -134,6 +136,7 @@ export default class Content extends Component {
                 )
 
                 this.setState({
+                    isLoading: false,
                     movieList: movieList,
                     total_pages: total_pages
                 });
@@ -157,6 +160,10 @@ export default class Content extends Component {
 
     _renderProductItemLayout = () => {
         const {movieList} = this.state;
+        const {isLoading} = this.state;
+
+        if (isLoading) return <Loading />
+
         if(movieList.length > 0) {
             return (
                 <div className="wthree_agile-requested-movies clearfix">
@@ -164,7 +171,10 @@ export default class Content extends Component {
                 </div>
             );
         }else {
-            return '';
+            return (
+
+                <div className="text-center" style={{margin: '5rem 0'}}>Sorry, Has no genres to show</div>
+            )
         }
     };
 

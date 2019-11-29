@@ -19,7 +19,7 @@ class Product extends Component {
     componentDidMount() {
         const id = this.props.match.params.id;
         this._getMovieDetail(id);
-       
+
     }
 
     _getMovieDetail = (movieID) => {
@@ -30,7 +30,7 @@ class Product extends Component {
         const getMovieListPromise = getMovieDetail(params);
         getMovieListPromise.then(response => {
                 const data = response.data;
-                
+               
                 this.setState({
                     MovieDetail: {
                         _name: `${data.title}`,
@@ -38,6 +38,7 @@ class Product extends Component {
                         _img: `${data.backdrop_path}`,
                         _vote: `${data.vote_average}`,
                         _date: `${data.release_date}`,
+                        _genre_ids: `${data.genres[0].name}`,
                     }
                 })
             }
@@ -51,15 +52,16 @@ class Product extends Component {
         return (
                 <h4>{this.state.MovieDetail._name}</h4>
         )
-    }  
+    }
 
     render() {
         if(this.state.MovieDetail._img !== undefined) {
+
             return (
-            
+
                 <div className="single-page-agile-main">
-                   
-                    <Breadcrumb  subitem={this.state.MovieDetail._name} />
+
+                    <Breadcrumb  subitem={this.state.MovieDetail._name} name={this.state.MovieDetail._genre_ids} />
                     <div className="w3_content_agilleinfo_inner">
                         <div className="agile_featured_movies">
                             <div className="latest-news-agile-info">
@@ -71,7 +73,7 @@ class Product extends Component {
                                         apiName="movie" />
                                     <div className="clearfix"> </div>
                                     <p>{this.state.MovieDetail._desc}</p>
-                                    
+
                                     <ShareThis/>
                                     <WriteAuthor/>
                                     <Comments id={this.props.match.params.id} apiName="movie" />
@@ -80,13 +82,13 @@ class Product extends Component {
                                 <div className="col-md-4 latest-news-agile-right-content">
                                     <HotTopics/>
                                     <LatestTrailer/>
-                                   
+
                                 </div>
                                 <div className="clearfix"></div>
                             </div>
                         </div>
                     </div>
-                       
+
                 </div>
             );
         }else{

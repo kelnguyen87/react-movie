@@ -6,7 +6,7 @@ import {getLayoutVote} from '../../Services/utilities';
 import Loading from '../../Sections/Loading';
 
 export default class Search extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -41,10 +41,10 @@ export default class Search extends Component {
         //this._promisAll(this.state.query);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {        
+    shouldComponentUpdate(nextProps, nextState) {
         return this.state !== nextState;
     }
-    
+
     _setSSConfig = (configImages) => {
         sessionStorage.setItem("configImage", JSON.stringify(configImages));
     }
@@ -62,12 +62,12 @@ export default class Search extends Component {
         let promiseGetConfig;
         if(ssConfig === null) promiseGetConfig = getConfiguration();
         else promiseGetConfig = ssConfig;
-       
+
         //Get movie List
         const getMovieListPromise = searchMovie(params);
         const combinePromise = Promise.all([promiseGetConfig, getMovieListPromise]);
 
-       
+
         combinePromise.then(values => {
 
             const configImages = values[0];
@@ -77,14 +77,14 @@ export default class Search extends Component {
             const configPathImages = configImages.data.images;
             const configPath = configPathImages.base_url + configPathImages.poster_sizes[0] ;
             let imagePath = 'http://placehold.jp/300x169.png';
-         
+
             const searchResults = values[1].data.results.map(
                 (function (movie, index) {
-                    
+
                     if(movie.poster_path !== null) {
                         imagePath = configPath + movie.poster_path;
                     }
-                    
+
                     return {
                         id: `${movie.id}`,
                         title: `${movie.title}`,
@@ -92,12 +92,12 @@ export default class Search extends Component {
                         desc: `${movie.overview}`,
                         images: `${imagePath}`,
                         vote_average:`${movie.vote_average}`,
-                    };    
-                      
+                    };
+
                 })
             )
-            
-          
+
+
             this.setState({
                 showSearch: true,
                 query: textQuery,
@@ -109,15 +109,15 @@ export default class Search extends Component {
         });
 
     };
-    
-    
+
+
     _renderProductItem = () => {
         const {results} = this.state;
-        const pathDetail = '/products/';
+        const path = '/video/';
         const items = results.map((item, index) => {
             return (
                 <div className="smartSearch-product" key={index}>
-                    <NavLink onClick={this._onClick} to={pathDetail + item.id} className="smartSearch-product--link">
+                    <NavLink onClick={this._onClick} to={path + item.id} className="smartSearch-product--link">
                         <div className="thumbnail">
                             <img src={item.images} title="album-name" className="img-responsive" alt=" " />
                         </div>
@@ -129,20 +129,20 @@ export default class Search extends Component {
                                 <ul className="w3l-ratings">
                                 {getLayoutVote(parseFloat(item.vote_average))}
                                 </ul>
-                                
+
                             </div>
                             <p className="description">
                                 {item.desc.substr(0, 200)}
                             </p>
-                            
+
                         </div>
                     </NavLink>
                 </div>
-                    
+
             );
         });
 
-        
+
         return items ;
     }
 
@@ -158,7 +158,7 @@ export default class Search extends Component {
                     <div  className="smartSearch-mainbody">
                         {this._renderProductItem()}
                     </div>
-                    {results.length > limit && 
+                    {results.length > limit &&
                         <div className="smartSearch-results">All Results {results.length} items</div>
                     }
                 </div>
@@ -182,7 +182,7 @@ export default class Search extends Component {
     _doSearch = (text) => {
         clearTimeout(this._delayTimer);
         var that = this;
-       
+
         this._delayTimer = setTimeout(function() {
             if(text !== '') {
                 that._promisAll(text);
@@ -196,7 +196,7 @@ export default class Search extends Component {
                 <div className="cd-main-header">
                     <ul className="cd-header-buttons">
                         <li><a className="cd-search-trigger" href="#cd-search"> <span></span></a></li>
-                    </ul> 
+                    </ul>
                 </div>
                     <div id="cd-search" className="cd-search">
                         <form action={'/search/'+this.state.query} >
@@ -204,8 +204,8 @@ export default class Search extends Component {
                                     name="Search" placeholder="Search"
                                     onChange={this._onChange}
                                     autoComplete="off" required />
-                          
-                        
+
+
                             <div className="box-results">
                                 {this._renderLayoutResult()}
                             </div>

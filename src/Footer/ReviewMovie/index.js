@@ -59,7 +59,7 @@ export default class ReviewMovie extends Component {
         const itemCarousel = resource.map((item, index) => {
             return (
                 <li key={index}>
-                    <NavLink to={path + item.id}>
+                    <NavLink to={path + item.id} target="_parent">
                         {item.name}
                     </NavLink>
                 </li>

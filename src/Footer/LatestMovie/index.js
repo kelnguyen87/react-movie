@@ -124,20 +124,20 @@ export default class LatestMovie extends Component {
 
     _renderCarouselList = () => {
         const {resource} = this.state;
-        const CategoryUrl = '/video/';
+        const path = '/video/';
         const itemCarousel = resource.map((item, index) => {
             if(item) {
                 return (
                     <div className="footer-grid1" key={index}>
                         <div className="footer-grid1-left">
-                        <NavLink to={CategoryUrl + item.id}>
+                        <NavLink to={path + item.id}>
                             <img src={item.images}  alt="{item.title}" className="img-responsive"/>
                         </NavLink>
 
                         </div>
 
                         <div className="footer-grid1-right">
-                            <NavLink to={CategoryUrl + item.id}>
+                            <NavLink to={path + item.id}>
                                 {item.title}
                             </NavLink>
                         </div>

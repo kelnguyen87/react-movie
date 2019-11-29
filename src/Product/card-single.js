@@ -1,19 +1,23 @@
 import React, {Component} from 'react';
 import {getLayoutVote} from '../Services/utilities';
 import LayoutGenre from '../Services/layoutGenre';
+import {NavLink} from "react-router-dom";
 
 export default class CardSingle extends Component {
 
     render() {
         const item = this.props.item;
-
+        const path = '/video/';
         return (
             <div  >
                 <div className="video-grid-single-page-agileits">
                     <div data-video="BXEZFd0RT5Y" id="video3">
-                        <img src={item.images}  alt="{item.title}" className="img-responsive"/>
-                        <div id="play" ></div>
+                        <NavLink to={path + item.id} >
+                            <img src={item.images}  alt="{item.title}" className="img-responsive"/>
+                            <div id="play" ></div>
+                        </NavLink>
                     </div>
+
                 </div>
                 <div className="player-text two">
                     <p className="fexi_header"> {this.props.item.title} </p>
